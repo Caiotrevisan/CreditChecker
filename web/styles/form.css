@@ -1,0 +1,46 @@
+#form {
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #form > input {
+    height: 60px;
+    width: 352px;
+    border: none;
+    color: black;
+    background-color: white;
+    border-radius: 5px;
+    padding: 0 12px;
+    font-size: 16px;
+  }
+
+  #form > input:focus {
+    outline: 2px solid blue;
+  }
+  
+  #form > input:valid {
+    background-color: white;
+  }
+
+  #form > button {
+    height: 52px;
+    width: 206px;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    background-color: #99EAE1;
+  
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  #form > button:hover {
+    background-color: #028B97;
+  }
+
+  #form > a:link, a:visited {
+    color: #818094;
+    text-decoration: none;
+  }

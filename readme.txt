@@ -1,0 +1,1 @@
+After creating the project and adjusting all the files, run the "npm i"
