@@ -1,67 +1,95 @@
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
 import gmailIcon from "@/assets/gmailImage.png";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import { Header } from "@/components/HomeHeader";
-//const Item = styled(TextField)(({ theme }) => ({
-/*backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  //padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,*/
-//}));
+import {
+  Typography,
+  TextField,
+  Box,
+  Container,
+  Stack,
+  Button,
+  FormControl,
+} from "@mui/material";
 
 export const Register = () => {
   return (
-    <Container
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        mt: 2,
-      }}
-    >
-      <Box>
-        <Typography variant="h1" gutterBottom>
-          Cadastro
-        </Typography>
-      </Box>
-      <Box
+    <>
+      <Container
+        maxWidth="xl"
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          textAlign: "center",
+          mt: 10,
         }}
       >
-        <Stack direction="column" spacing="0.5">
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-        </Stack>
-      </Box>
-
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        <Typography variant="h6">Ou</Typography>
-        <img src={gmailIcon} />
-        <Stack spacing={2} direction="row" sx={{ mt: 2 }}>
-          <Button variant="contained">Contained</Button>
-          <Button variant="outlined">Outlined</Button>
-        </Stack>
-      </Box>
-    </Container>
+        <Box>
+          <Typography variant="h4" component="h2">
+            Cadastro
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <FormControl>
+            <Stack
+              spacing={1}
+              sx={{
+                my: 2,
+                input: {
+                  width: "60ch",
+                  height: "1ch",
+                },
+              }}
+            >
+              <TextField
+                name="Nome da instituição"
+                placeholder="Nome da instituição"
+              />
+              <TextField
+                name="Tipo da instituição"
+                placeholder="Tipo da instituição"
+              />
+              <TextField name="Nome do usuário" placeholder="Nome do usuário" />
+              <TextField
+                name="Nome da instituição"
+                placeholder="Nome da instituição"
+              />
+              <TextField name="Senha" placeholder="Senha" type="password" />
+              <TextField
+                name="Repetir senha"
+                placeholder="repetir senha"
+                type="password"
+              />
+              <TextField name="Cidade" placeholder="Cidade" />
+              <TextField name="Estado" placeholder="Estado" />
+            </Stack>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                img: {
+                  m: 1,
+                },
+                button: {},
+              }}
+            >
+              <Typography variant="h6">Ou</Typography>
+              <img src={gmailIcon} />
+              <Stack spacing={2} direction="row" sx={{ mt: 2 }}>
+                <Button variant="contained" size="large">
+                  Confirmar
+                </Button>
+                <Button variant="outlined" size="large">
+                  Voltar
+                </Button>
+              </Stack>
+            </Box>
+          </FormControl>
+        </Box>
+      </Container>
+    </>
   );
 };

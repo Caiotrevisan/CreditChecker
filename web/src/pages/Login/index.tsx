@@ -7,7 +7,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import { styled } from "@mui/system";
 import Logo from "@/assets/Rectangle.png";
 
 export default function Login() {
@@ -31,7 +30,7 @@ export default function Login() {
         sm={4}
         md={7}
         sx={{
-          backgroundColor: "#E6E6F0",
+          backgroundColor: "#C8C8E2",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -61,8 +60,8 @@ export default function Login() {
             alignItems: "flex-start",
           }}
         >
-          <Typography component="h1" variant="h5">
-            Sign in
+          <Typography component="h4" variant="h4">
+            Log in
           </Typography>
           <Box
             component="form"
