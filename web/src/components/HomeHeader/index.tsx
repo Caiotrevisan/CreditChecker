@@ -16,7 +16,7 @@ const HomeDetail = styled("div")({
   gap: "16px",
 });
 
-export const Header = ({ isAdmin }: { isAdmin: boolean }) => {
+export const Header = ({ isAdmin }: { isAdmin?: boolean }) => {
   return (
     <StyledContainer>
       <HomeDetail>
