@@ -5,7 +5,7 @@ export default function Theme() {
     palette: {
       mode: "light",
       primary: {
-        main: "#99eae1",
+        main: "#8bdbca",
         contrastText: "#fff",
       },
       secondary: {

@@ -8,6 +8,7 @@ import {
   Button,
   FormControl,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export const Register = () => {
   return (
@@ -73,7 +74,6 @@ export const Register = () => {
                 img: {
                   m: 1,
                 },
-                button: {},
               }}
             >
               <Typography variant="h6">Ou</Typography>
@@ -82,9 +82,11 @@ export const Register = () => {
                 <Button variant="contained" size="large">
                   Confirmar
                 </Button>
-                <Button variant="outlined" size="large">
-                  Voltar
-                </Button>
+                <Link to="/">
+                  <Button variant="outlined" size="large">
+                    Voltar
+                  </Button>
+                </Link>
               </Stack>
             </Box>
           </FormControl>

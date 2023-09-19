@@ -1,15 +1,31 @@
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
+import {
+  Button,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Grid,
+  Box,
+  Typography,
+  Paper,
+  Link,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Logo from "@/assets/Rectangle.png";
+import { Link as Redirect } from "react-router-dom";
+import { useState } from "react";
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
   const handleSubmit = (event: {
     preventDefault: () => void;
     currentTarget: HTMLFormElement | undefined;
@@ -50,6 +66,7 @@ export default function Login() {
           backgroundColor: "#E6E6F0",
           display: "flex",
           alignItems: "center",
+          justifyContent: "center",
           p: 2,
         }}
       >
@@ -57,11 +74,12 @@ export default function Login() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Typography component="h4" variant="h4">
-            Log in
+            Acessar
           </Typography>
           <Box
             component="form"
@@ -74,115 +92,71 @@ export default function Login() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="E-mail"
               name="email"
               autoComplete="email"
               autoFocus
+              variant="standard"
             />
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
-              label="Password"
-              type="password"
+              label="Senha"
+              type={showPassword ? "text" : "password"}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
               id="password"
               autoComplete="current-password"
+              variant="standard"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label="Lembre me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Entrar
+          </Button>
+          <Grid
+            container
+            sx={{
+              a: {
+                textDecoration: "none",
+                color: "#818094",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              },
+            }}
+          >
+            <Grid item xs>
+              <Redirect to="#">Esqueceu a senha?</Redirect>
+            </Grid>
+            <Grid item>
+              <Redirect to="/register">Ainda não tem conta?</Redirect>
+            </Grid>
+          </Grid>
         </Box>
       </Grid>
     </Grid>
-
-    /*  <>
-      <Container>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Container>
-    </>*/
   );
 }
