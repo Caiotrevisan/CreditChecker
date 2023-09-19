@@ -1,7 +1,7 @@
 import cors from "cors"
 import express from "express"
 
-import { sum, sub } from "./calc.js"
+import { sum, sub, mult, div } from "./calc.js"
 
 const app = express()
 app.use(express.json())
@@ -9,25 +9,42 @@ app.use(cors())
 
 app.get("/calc/sum/:a/:b", (request, response) => {
 
-    const calculation = sum(request.params.a, request.params.b)
+    const sumResult = sum(request.params.a, request.params.b)
 
-    return response.json({calculation})
+    return response.json({sumResult})
 })
 
 app.get("/calc/sub/:a/:b", (request, response) => {
 
-    const calculation = sub(request.params.a, request.params.b)
+    const subResult = sub(request.params.a, request.params.b)
 
-    return response.json({calculation})
+    return response.json({subResult})
+})
+
+app.get("/calc/mult/:a/:b", (request, response) => {
+
+    const multResult = mult(request.params.a, request.params.b)
+
+    return response.json({multResult})
+})
+
+app.get("/calc/div/:a/:b", (request, response) => {
+
+    const divResult = div(request.params.a, request.params.b)
+
+    return response.json({divResult})
+})
+
+app.post("/login", (request, response) => {
+
+    console.log(request.body)
+
+    response.sendStatus(201)
 })
 
 app.post("/test", (request, response) => {
-    const finalCalc = request.body.finalCalc
-    const age = request.body.age
-    const something = request.body.something
-    const random = request.body.random
-
-    console.log(finalCalc, age, something, random)
+    
+    console.log(request.body)
 
     response.sendStatus(201)
 
