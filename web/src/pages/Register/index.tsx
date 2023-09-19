@@ -16,79 +16,52 @@ import { Header } from "@/components/HomeHeader";
 
 export const Register = () => {
   return (
-    <>
-      <Header isAdmin={false} />
-      <Container
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        mt: 2,
+      }}
+    >
+      <Box>
+        <Typography variant="h1" gutterBottom>
+          Cadastro
+        </Typography>
+      </Box>
+      <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
-          mt: 2,
         }}
       >
-        <Box>
-          <Typography variant="h1" gutterBottom>
-            Cadastro
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Stack direction="column" spacing="0.5">
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />
-          </Stack>
-        </Box>
+        <Stack direction="column" spacing="0.5">
+          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+        </Stack>
+      </Box>
 
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <Typography variant="h6">Ou</Typography>
-          <img src={gmailIcon} />
-          <Stack spacing={2} direction="row" sx={{ mt: 2 }}>
-            <Button variant="contained">Contained</Button>
-            <Button variant="outlined">Outlined</Button>
-          </Stack>
-        </Box>
-      </Container>
-    </>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <Typography variant="h6">Ou</Typography>
+        <img src={gmailIcon} />
+        <Stack spacing={2} direction="row" sx={{ mt: 2 }}>
+          <Button variant="contained">Contained</Button>
+          <Button variant="outlined">Outlined</Button>
+        </Stack>
+      </Box>
+    </Container>
   );
 };
