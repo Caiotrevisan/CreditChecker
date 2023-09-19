@@ -12,8 +12,8 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import Logo from "@/assets/Rectangle.png";
-import { Link as Redirect } from "react-router-dom";
+import Logo from "@/assets/Logo-teste.png";
+import { Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
 
 export default function Login() {
@@ -46,13 +46,23 @@ export default function Login() {
         sm={4}
         md={7}
         sx={{
-          backgroundColor: "#C8C8E2",
+          backgroundColor: "#C8BFE7",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <img src={Logo} />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <img src={Logo} />
+          <Typography>Credit Checker</Typography>
+        </Box>
       </Grid>
       <Grid
         item
@@ -63,7 +73,8 @@ export default function Login() {
         elevation={6}
         square
         sx={{
-          backgroundColor: "#E6E6F0",
+          //backgroundColor: "#E6E6F0",
+          backgroundImage: "url('/assets/Teste.png')",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -136,23 +147,26 @@ export default function Login() {
           >
             Entrar
           </Button>
-          <Grid
-            container
-            sx={{
-              a: {
-                textDecoration: "none",
-                color: "#818094",
-                "&:hover": {
-                  textDecoration: "underline",
-                },
-              },
-            }}
-          >
+          <Grid container>
             <Grid item xs>
-              <Redirect to="#">Esqueceu a senha?</Redirect>
+              <Link
+                component={RouterLink}
+                to="#"
+                underline="hover"
+                color="GrayText"
+              >
+                Esqueceu a senha?
+              </Link>
             </Grid>
             <Grid item>
-              <Redirect to="/register">Ainda não tem conta?</Redirect>
+              <Link
+                component={RouterLink}
+                to="/register"
+                underline="hover"
+                color="GrayText"
+              >
+                Ainda não tem conta?
+              </Link>
             </Grid>
           </Grid>
         </Box>
