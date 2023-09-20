@@ -53,34 +53,9 @@ app.delete("/params/delete", async (req, res) => {
   deleteParam(req, res)
 })
 
-
 // Rotas para acesso as funções de cálculo (Validação de parametros enviados pelo cliente)
 app.post("/calc/calctaxa", async (req, res) => {
   calcTaxa(req, res)
-})
-
-
-// Apenas para testes de criação no banco de dados.
-app.post("/test", async (req, res) => {
-  const params = {
-    TableName: "creditchecker",
-    Item: 
-    {
-      id: "test",
-      userId: "test",
-      itemType: "parametro",
-      taxa: "12",
-      idadeMin: "10"
-    }
-    }
-
-  try {
-    const data = await dynamodb.put(params).promise()
-    res.json(data.Item)
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: "Erro ao inserir dados no banco de dados" })
-  }
 })
 
 app.listen(3333, () => console.log("Server is running on port 3333"))
