@@ -2,16 +2,17 @@ import cors from "cors"
 import express from "express"
 import { dynamodb } from "./aws.js"
 import { getUserParam, getParam, newParam, updateParam, deleteParam } from "./param.js"
-//import { v4 as uuidv4 } from "uuid";
-import { randomNumber } from "./calc.js"
+import { checkUser, newUser, updateUser } from "./user.js"
+import { authLogin } from "./auth.js"
 
-let test
+//import { randomNumber } from "./calc.js"
 
 const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.get("/getparam/:id", async (req, res) => {
+// Rotas para acesso as funções de parametros (Criação/Alteração/Exclusão/Consulta)
+app.get("params/getparam/:id", async (req, res) => {
   getParam(req, res, req.params.id)
 })
 
@@ -31,6 +32,24 @@ app.delete("/params/delete", async (req, res) => {
   deleteParam(req, res)
 })
 
+// Rotas para acesso as funções do usuário (Cadastro/Alteração)
+app.post("/user/new", async (req, res) => {
+  newUser(req, res)
+})
+
+app.post("/user/verify", async (req, res) => {
+  checkUser(req, res)
+})
+
+app.post("/user/update", async (req, res) => {
+  updateUser(req, res)
+})
+
+// Rotas para acesso as funções de autenticação (Login)
+app.post("/user/login", async (req, res) => {
+  authLogin(req, res)
+})
+
 
 
 // Apenas para testes de criação no banco de dados.
@@ -39,17 +58,11 @@ app.post("/test", async (req, res) => {
     TableName: "creditchecker",
     Item: 
     {
-      id: "test", 
+      id: "test",
       userId: "test",
-      taxa: randomNumber(1, 10),
-      idadeMin: 18, 
-      idadeMax: randomNumber(20, 25),
-      salarioMin: randomNumber(1000, 1500),
-      salarioMax: randomNumber(2000, 3000),
-      tipoFinanciamento: "Teste", 
-      valFinancMin: randomNumber(2500, 3000),
-      valFinancMax: randomNumber(3500, 5000),
-      correntista: true
+      itemType: "parametro",
+      taxa: "12",
+      idadeMin: "10"
     }
     }
 
@@ -58,7 +71,7 @@ app.post("/test", async (req, res) => {
     res.json(data.Item)
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: "Erro ao inserir dados no DynamoDB" })
+    res.status(500).json({ error: "Erro ao inserir dados no banco de dados" })
   }
 })
 

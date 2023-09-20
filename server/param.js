@@ -1,4 +1,7 @@
 import { dynamodb } from "./aws.js"
+import { v4 as uuid } from "uuid";
+
+const itemType = "parametro"
 
 // Função para retornar todos os dados de um determinado item (parametro) através do seu id.
 // Exemplo de uso: id = 1, acessar http://localhost:3333/getitem/1 - método GET
@@ -6,7 +9,8 @@ export async function getParam(req, res, paramId) {
     const params = {
         TableName: "creditchecker",
         Key: {
-          id: paramId
+          id: paramId,
+          itemType: itemType
         },
       }
     
@@ -15,7 +19,7 @@ export async function getParam(req, res, paramId) {
         res.json(data.Item)
       } catch (error) {
         console.error(error)
-        res.status(500).json({ error: "Erro ao buscar item no DynamoDB" })
+        res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
       }
 }
 
@@ -24,9 +28,10 @@ export async function getParam(req, res, paramId) {
 export async function getUserParam(req, res, userId) {
     const params = {
         TableName: "creditchecker",
-        FilterExpression: "userId = :userIdValue",
+        FilterExpression: "itemType = :itemTypeValue AND userId = :userIdValue",
         ExpressionAttributeValues: {
-            ":userIdValue": userId,
+          ":itemTypeValue": itemType,
+          ":userIdValue": userId,
         },
       }
     
@@ -35,7 +40,7 @@ export async function getUserParam(req, res, userId) {
         res.json(data.Items)
       } catch (error) {
         console.error(error)
-        res.status(500).json({ error: "Erro ao buscar item no DynamoDB" })
+        res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
       }
 }
 
@@ -53,18 +58,21 @@ export async function getUserParam(req, res, userId) {
 //    "taxa": 3
 // }
 export async function newParam(req, res) {
-    const params = {
-        TableName: "creditchecker",
-        Item: req.body
-        }
+  const params = {
+    TableName: "creditchecker",
+    Item: {
+      id: uuid(),
+      itemType: itemType,
+      ...req.body
+    }}
     
-      try {
-        const data = await dynamodb.put(params).promise()
-        res.json(data.Item)
-      } catch (error) {
-        console.error(error)
-        res.status(500).json({ error: "Erro ao incluir item no DynamoDB" })
-      }
+  try {
+    const data = await dynamodb.put(params).promise()
+    res.json(data.Item)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Erro ao incluir item no banco de dados" })
+  }
 }
 
 // Função para atualizar um parametro através do corpo da requisição
@@ -79,6 +87,7 @@ export async function updateParam(req, res) {
         TableName: "creditchecker",
         Key: {
             id: req.body.id,
+            itemType: itemType
           },
           UpdateExpression: "SET taxa = :newTaxa",
           ExpressionAttributeValues: {
@@ -92,7 +101,7 @@ export async function updateParam(req, res) {
         res.json(data.Item)
       } catch (error) {
         console.error(error)
-        res.status(500).json({ error: "Erro ao atualizar item no DynamoDB" })
+        res.status(500).json({ error: "Erro ao atualizar item no banco de dados" })
       }
 }
 
@@ -108,6 +117,7 @@ export async function deleteParam(req, res) {
       TableName: "creditchecker",
       Key: {
           id: req.body.id,
+          itemType: itemType
         },
         ConditionExpression: "userId = :userIdValue",
         ExpressionAttributeValues: {
@@ -120,6 +130,6 @@ export async function deleteParam(req, res) {
       res.json(data.Item)
     } catch (error) {
       console.error(error)
-      res.status(500).json({ error: "Erro ao apagar item no DynamoDB" })
+      res.status(500).json({ error: "Erro ao apagar item no banco de dados" })
     }
 }
