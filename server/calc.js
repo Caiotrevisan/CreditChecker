@@ -10,9 +10,10 @@ Irá retornar o id do parametro condizente e sua taxa.
 Exemplo de uso: Enviar no corpo da requisição em http://localhost:3333/calc/calctaxa -  método POST
 Formato: JSON
 {
-    "userId": "1",
+    "userId": "1234",
     "values": [
      {
+        "idCalc": "1",
         "idade": 18,
         "salario": 1000,
         "tipoFinanciamento": "cartao",
@@ -20,6 +21,7 @@ Formato: JSON
         "correntista": false
     },
     {
+        "idCalc": "1",
         "idade": 25,
         "salario": 2000,
         "tipoFinanciamento": "financiamento",
@@ -63,7 +65,8 @@ function calcParam(req, data) {
                 value.valFinanc <= item.valFinancMax &&
                 value.correntista == item.correntista
                 ) {
-                    result.push( { idParam: item.id, taxa: item.taxa } )
+                    //console.log(value.idTest)
+                    result.push( { idCalc: value.idCalc, idParam: item.id, taxa: item.taxa } )
                 }
             })
         })
