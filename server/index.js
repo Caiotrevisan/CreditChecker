@@ -1,9 +1,11 @@
 import cors from "cors"
 import express from "express"
 import { dynamodb } from "./aws.js"
-import { getUserParam, getParam, newParam, updateParam } from "./param.js"
+import { getUserParam, getParam, newParam, updateParam, deleteParam } from "./param.js"
 //import { v4 as uuidv4 } from "uuid";
 import { randomNumber } from "./calc.js"
+
+let test
 
 const app = express()
 app.use(express.json())
@@ -24,6 +26,12 @@ app.post("/params/new", async (req, res) => {
 app.patch("/params/update", async (req, res) => { 
   updateParam(req, res)
 })
+
+app.delete("/params/delete", async (req, res) => { 
+  deleteParam(req, res)
+})
+
+
 
 // Apenas para testes de criação no banco de dados.
 app.post("/test", async (req, res) => {

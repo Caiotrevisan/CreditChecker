@@ -12,7 +12,6 @@ export async function getParam(req, res, paramId) {
     
       try {
         const data = await dynamodb.get(params).promise()
-        console.log(data)
         res.json(data.Item)
       } catch (error) {
         console.error(error)
@@ -33,7 +32,6 @@ export async function getUserParam(req, res, userId) {
     
       try {
         const data = await dynamodb.scan(params).promise()
-        console.log(data)
         res.json(data.Items)
       } catch (error) {
         console.error(error)
@@ -44,14 +42,16 @@ export async function getUserParam(req, res, userId) {
 // Função para criar um novo parametros através do corpo da requisição.
 // Exemplo de uso: Enviar no corpo da requisição em http://localhost:3333/params/new -  método POST
 // Formato: JSON
-// {"id":"1",
-// "userId":1,
-// "idadeMin":18,"idadeMax":21,
-// "salarioMin":1068,"salarioMax":2285,
-// "tipoFinanciamento":"Teste",
-// "valFinancMin":2844,"valFinancMax":3546,
-// "correntista":true,
-// "taxa":3}
+// {
+//    "id": "1",
+//    "userId": 1,
+//    "idadeMin": 18,"idadeMax": 21,
+//    "salarioMin": 1068,"salarioMax": 2285,
+//    "tipoFinanciamento": "Teste",
+//    "valFinancMin": 2844,"valFinancMax": 3546,
+//    "correntista": true,
+//    "taxa": 3
+// }
 export async function newParam(req, res) {
     const params = {
         TableName: "creditchecker",
@@ -68,7 +68,12 @@ export async function newParam(req, res) {
 }
 
 // Função para atualizar um parametro através do corpo da requisição
-// Exemplo de uso: Enviar no corpo da requisição o id e a taxa em http://localhost:3333/params/update -  método PATCH
+// Exemplo de uso: Enviar no corpo da requisição em http://localhost:3333/params/update -  método PATCH
+// Formato: JSON
+// {
+//    "id": "1",
+//    "taxa": 3
+// }
 export async function updateParam(req, res) {
     const params = {
         TableName: "creditchecker",
@@ -89,4 +94,32 @@ export async function updateParam(req, res) {
         console.error(error)
         res.status(500).json({ error: "Erro ao atualizar item no DynamoDB" })
       }
+}
+
+// Função para remover um parametro através do corpo da requisição
+// Exemplo de uso: Enviar no corpo da requisição o id e o userId em http://localhost:3333/params/update -  método DELETE
+// Formato: JSON
+// {
+//    "id": "1",
+//    "userId": "1"
+// }
+export async function deleteParam(req, res) {
+  const params = {
+      TableName: "creditchecker",
+      Key: {
+          id: req.body.id,
+        },
+        ConditionExpression: "userId = :userIdValue",
+        ExpressionAttributeValues: {
+          ":userIdValue": req.body.userId,
+        },
+      }
+
+    try {
+      const data = await dynamodb.delete(params).promise()
+      res.json(data.Item)
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ error: "Erro ao apagar item no DynamoDB" })
+    }
 }
