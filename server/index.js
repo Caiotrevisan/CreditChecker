@@ -1,6 +1,5 @@
 import cors from "cors"
 import express from "express"
-import { dynamodb } from "./aws.js"
 import { authLogin } from "./auth.js"
 import { getAllUser, checkUser, newUser, updateUser } from "./user.js"
 import { getParam, getUserParam, newParam, updateParam, deleteParam } from "./param.js"
