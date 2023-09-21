@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 import { Header } from "@/components/HomeHeader";
+import { ParametersTable } from "./ParametersTable";
 
 export const HomeUser = () => {
   return (
@@ -20,6 +21,7 @@ export const HomeUser = () => {
         <Typography variant="h1" gutterBottom>
           Lista de Usuários
         </Typography>
+        <ParametersTable />
       </Container>
     </>
   );
