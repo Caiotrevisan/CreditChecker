@@ -32,7 +32,7 @@ app.post("/user/update", async (req, res) => {
 })
 
 // Rotas para acesso as funções de parametros (Criação/Alteração/Exclusão/Consulta)
-app.get("params/getparam/:id", async (req, res) => {
+app.get("/params/getparam/:id", async (req, res) => {
   getParam(req, res, req.params.id)
 })
 
