@@ -1,24 +1,24 @@
 import { dynamodb } from "./aws.js"
 import { v4 as uuid } from "uuid";
 
-const itemType = "usuario"
+const itemType = "user"
 
 /*
 Função para validar o usuario.
 Exemplo de uso: Enviar no corpo da requisição em http://localhost:3333/user/verify -  método POST
 Formato: JSON
 {
-   "usuario": "teste",
-   "senha": "1234",
+   "userName": "teste",
+   "password": "1234",
 }
 */
 export async function checkUser(req, res) {
     const params = {
         TableName: "creditchecker",
-        FilterExpression: "itemType = :itemTypeValue AND usuario = :usuarioValue",
+        FilterExpression: "itemType = :itemTypeValue AND userName = :userNameValue",
         ExpressionAttributeValues: {
           ":itemTypeValue": itemType,
-          ":usuarioValue": req.body.usuario,
+          ":userNameValue": req.body.userName,
         },
       }
 
@@ -63,21 +63,21 @@ Função para validar e criar um novo usuario.
 Exemplo de uso: Enviar no corpo da requisição em http://localhost:3333/user/new -  método POST
 Formato: JSON
 {
-  "nomeInst": "banco SA",
-  "tipoInst": "banco",
-  "usuario": "teste",
-  "senha": "1234",
-  "cidade": "sao Paulo,
-  "uf": "SP"
+  "institutionName": "banco SA",
+  "institutionType": "banco",
+  "userName": "teste",
+  "password": "1234",
+  "city": "sao Paulo",
+  "state": "SP"
 }
 */
 export async function newUser(req, res) {
   const check = {
     TableName: "creditchecker",
-    FilterExpression: "itemType = :itemTypeValue AND usuario = :usuarioValue",
+    FilterExpression: "itemType = :itemTypeValue AND userName = :userNameValue",
     ExpressionAttributeValues: {
       ":itemTypeValue": itemType,
-      ":usuarioValue": req.body.usuario,
+      ":userNameValue": req.body.userName,
     }
   }
   const params = {
@@ -108,7 +108,7 @@ Exemplo de uso: Enviar no corpo da requisição em http://localhost:3333/user/up
 Formato: JSON
 {
   "id": "1"
-  "senha": "1234"
+  "password": "1234"
 }
 */
 export async function updateUser(req, res) {
@@ -118,9 +118,9 @@ export async function updateUser(req, res) {
             id: req.body.id,
             itemType: itemType
           },
-          UpdateExpression: "SET senha = :novaSenha",
+          UpdateExpression: "SET password = :newPassword",
           ExpressionAttributeValues: {
-            ":novaSenha": req.body.senha,
+            ":newPassword": req.body.password,
           },
           ReturnValues: "ALL_NEW"
         }

@@ -31,10 +31,11 @@ export default function Login() {
   }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log(data)
     const result = await server.post('/user/login',      
     {        
-      usuario: data.get("user"),        
-      senha: data.get("password")      
+      userName: data.get("user"),
+      password: data.get("password")
     })
     console.log(result.data)
   };

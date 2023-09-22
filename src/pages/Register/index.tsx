@@ -10,7 +10,7 @@ import {
   IconButton,
   InputAdornment,
 } from "@mui/material";
-import { SendSharp, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import server from "@/server";
@@ -58,12 +58,12 @@ export const Register = () => {
 
     const result = await server.post('/user/new',      
       {
-        nomeInst: data.get("nomeInst"),
-        tipoInst: data.get("tipoInst"),
-        usuario: data.get("usuario"),
-        senha: data.get("senha"),
-        cidade: data.get("cidade"),
-        uf: data.get("uf"),
+        institutionName: data.get("nomeInst"),
+        institutionType: data.get("tipoInst"),
+        userName: data.get("usuario"),
+        password: data.get("senha"),
+        city: data.get("cidade"),
+        state: data.get("uf"),
         active: false
       })
 

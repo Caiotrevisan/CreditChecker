@@ -7,7 +7,7 @@ Função para authenticar as credenciais do usuario.
 Exemplo de uso: Enviar no corpo da requisição em http://localhost:3333/user/login - método POST
 Formato: JSON
 {
-   "user": "teste",
+   "userName": "teste",
    "password": "1234",
 }
 */
@@ -15,10 +15,10 @@ export async function authLogin(req, res) {
     const params = {
         TableName: "creditchecker",
         FilterExpression: 
-        "itemType = :itemTypeValue AND user = :userValue AND password = :passwordValue",
+        "itemType = :itemTypeValue AND userName = :userNameValue AND password = :passwordValue",
         ExpressionAttributeValues: {
           ":itemTypeValue": itemType,
-          ":userValue": req.body.user,
+          ":userNameValue": req.body.userName,
           ":passwordValue": req.body.password
         },
       }

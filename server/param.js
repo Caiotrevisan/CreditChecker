@@ -102,7 +102,7 @@ export async function updateParam(req, res) {
           },
           UpdateExpression: "SET fee = :newFee",
           ExpressionAttributeValues: {
-            ":newFee": req.body.taxa,
+            ":newFee": req.body.fee,
           },
           ReturnValues: "ALL_NEW"
         }
