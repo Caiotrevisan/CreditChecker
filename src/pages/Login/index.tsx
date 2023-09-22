@@ -15,10 +15,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Logo from "@/assets/Logo-teste.png";
 import { Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios"
 import server from "@/server";
-
-axios.defaults.baseURL = 'http://localhost:3333/';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
