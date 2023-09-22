@@ -7,73 +7,71 @@ import {
   Stack,
   Button,
   FormControl,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
+import { SendSharp, Visibility, VisibilityOff } from "@mui/icons-material";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import server from "@/server";
 
-// axios.get('/report/' + user_id)
-//             .then((response) => {
-//                 setRes(response.data.body)
-//                 setConfig(response.data.body.config)
-//             })
-//             .catch((error) => {
-//                 setNoUser(true)
-//                 setTimeout(() => window.location.href = "/Login", 2000)
-//             })
-
-// axios.post('/' + mode,
-// data, {
-// headers: { 'Content-Type': 'application/json' }
-// })
-// .then(function (response) {
-//     console.log(response);
-//     axios
-//         .patch('/user/' + user_id, {
-//             balanceValue: mode === "expanse" ? balance - (+value) : balance + (+value),
-//             totalIncomes: totalIncomes,
-//             totalExpanses: totalExpanses
-//         })
-//         .then((response) => {
-//             console.log('Update successful:', response.data);
-//             window.location.href = "/";
-//         })
-//         .catch((error) => {
-//             console.error('Error updating data:', error);
-//         });
-
-// })
-// .catch(function (error) {
-//     console.log(error);
-// });
-
-
-// axios
-// .patch('/user/' + user_id, {
-//     balanceValue: removeConfirmItemMode === "income" ? balance - removeValueItem : balance + removeValueItem,
-//     totalIncomes: totalIncomes,
-//     totalExpanses: totalExpanses
-// })
-// .then((response) => {
-//     window.location.href = "/";
-// })
-// .catch((error) => {
-//     console.error('Error updating data:', error);
-// });
-
 export const Register = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
   const handleSubmit = async (event: {
     preventDefault: () => void;
     currentTarget: HTMLFormElement | undefined;
   }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    if (data.get("nomeInst").length < 2) {
+      return alert("Preencha o nome da instituição!");
+    };
+    if (data.get("tipoInst").length < 4) {
+      return alert("Preencha o tipo da instituição!");
+    };
+    if (data.get("usuario").length < 5) {
+      return alert("Preencha o nome de usuário!");
+    };
+    if (data.get("senha").length < 5) {
+      return alert("Preencha a senha de usuário!");
+    }
+    if (data.get("repSenha").length < 5) {
+      return alert("Repita a senha de usuário!");
+    }
+    if (data.get("cidade").length < 5) {
+      return alert("Preencha o nome da cidade!");
+    }
+    if (data.get("uf").length < 2) {
+      return alert("Preencha o estado (UF)!");
+    }
+    if (data.get("senha") != data.get("repSenha")) {
+      return alert("As senhas não coincidem!");
+    };
+
     const result = await server.post('/user/new',      
-    {
-              
-      usuario: data.get("user"),        
-      senha: data.get("password")      
-    })
-    console.log(result.data)
+      {
+        nomeInst: data.get("nomeInst"),
+        tipoInst: data.get("tipoInst"),
+        usuario: data.get("usuario"),
+        senha: data.get("senha"),
+        cidade: data.get("cidade"),
+        uf: data.get("uf"),
+        active: false
+      })
+
+      if (result.data.hasOwnProperty("error")) {
+        return alert(result.data.error)
+      }
+
+      return console.log(result.data)
   };
 
   return (
@@ -111,40 +109,46 @@ export const Register = () => {
               }}
             >
               <TextField
-                id="nomeInst"
-                name="Nome da instituição"
+                name="nomeInst"
                 placeholder="Nome da instituição"
               />
               <TextField
-                id="tipoInst"
-                name="Tipo da instituição"
+                name="tipoInst"
                 placeholder="Tipo da instituição"
               />
               <TextField
-                id="usuario"
-                name="Nome do usuário" 
+                name="usuario"
                 placeholder="Nome do usuário" 
               />
               <TextField
-                id="senha"
-                name="Senha"
+                name="senha"
                 placeholder="Senha"
-                type="password"
+                type={showPassword ? "text" : "password"}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <TextField
-                id="repSenha"
-                name="Repetir senha"
+                name="repSenha"
                 placeholder="Repetir senha"
-                type="password"
+                type={showPassword ? "text" : "password"}
               />
               <TextField
-                id="cidade"
-                name="Cidade"
+                name="cidade"
                 placeholder="Cidade"
               />
               <TextField
-                id="uf"
-                name="Estado"
+                name="uf"
                 placeholder="Estado"
               />
             </Stack>
