@@ -15,6 +15,10 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Logo from "@/assets/Logo-teste.png";
 import { Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios"
+import server from "@/server";
+
+axios.defaults.baseURL = 'http://localhost:3333/';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,16 +30,18 @@ export default function Login() {
   ) => {
     event.preventDefault();
   };
-  const handleSubmit = (event: {
+  const handleSubmit = async (event: {
     preventDefault: () => void;
     currentTarget: HTMLFormElement | undefined;
   }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const test = await server.post('/user/login',      
+    {        
+      usuario: data.get("user"),        
+      senha: data.get("password")      
+    })
+    console.log(test)
   };
 
   return (
@@ -102,10 +108,10 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="E-mail"
-              name="email"
-              autoComplete="email"
+              id="user"
+              label="Usuário"
+              name="user"
+              autoComplete="user"
               autoFocus
               variant="standard"
             />
@@ -137,16 +143,23 @@ export default function Login() {
               control={<Checkbox value="remember" color="primary" />}
               label="Lembre me"
             />
+            <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
+              <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              >
+                Entrar
+              </Button>
+            </Box>
+            
           </Box>
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Entrar
-          </Button>
           <Grid container>
             <Grid item xs>
               <Link
