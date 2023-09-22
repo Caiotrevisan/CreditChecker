@@ -1,3 +1,7 @@
+import axios from "axios"
+axios.defaults.baseURL = 'http://localhost:3333';
+
+
 import gmailIcon from "@/assets/gmailImage.png";
 import {
   Typography,
@@ -10,7 +14,69 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
+// axios.get('/report/' + user_id)
+//             .then((response) => {
+//                 setRes(response.data.body)
+//                 setConfig(response.data.body.config)
+//             })
+//             .catch((error) => {
+//                 setNoUser(true)
+//                 setTimeout(() => window.location.href = "/Login", 2000)
+//             })
+
+// axios.post('/' + mode,
+// data, {
+// headers: { 'Content-Type': 'application/json' }
+// })
+// .then(function (response) {
+//     console.log(response);
+//     axios
+//         .patch('/user/' + user_id, {
+//             balanceValue: mode === "expanse" ? balance - (+value) : balance + (+value),
+//             totalIncomes: totalIncomes,
+//             totalExpanses: totalExpanses
+//         })
+//         .then((response) => {
+//             console.log('Update successful:', response.data);
+//             window.location.href = "/";
+//         })
+//         .catch((error) => {
+//             console.error('Error updating data:', error);
+//         });
+
+// })
+// .catch(function (error) {
+//     console.log(error);
+// });
+
+
+// axios
+// .patch('/user/' + user_id, {
+//     balanceValue: removeConfirmItemMode === "income" ? balance - removeValueItem : balance + removeValueItem,
+//     totalIncomes: totalIncomes,
+//     totalExpanses: totalExpanses
+// })
+// .then((response) => {
+//     window.location.href = "/";
+// })
+// .catch((error) => {
+//     console.error('Error updating data:', error);
+// });
+
 export const Register = () => {
+  axios.post('/user/new',
+    {
+
+    }, {
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
   return (
     <>
       <Container
