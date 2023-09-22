@@ -25,9 +25,15 @@ export async function authLogin(req, res) {
 
       try {
         const data = await dynamodb.scan(params).promise()
+        
+        if (data.Count == 0) {
+          return res.status(200).json({ error: "Dados inválidos" })
+        }
+
         res.status(200).json({ userId: data.Items[0].id })
+
       } catch (error) {
         console.error(error)
-        res.status(500).json({ error: "Erro ao buscar informacoes no banco de dados" })
+        res.status(500).json({ error })
       }
 }

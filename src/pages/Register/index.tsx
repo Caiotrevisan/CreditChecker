@@ -1,7 +1,3 @@
-import axios from "axios"
-axios.defaults.baseURL = 'http://localhost:3333';
-
-
 import gmailIcon from "@/assets/gmailImage.png";
 import {
   Typography,
@@ -13,6 +9,7 @@ import {
   FormControl,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import server from "@/server";
 
 // axios.get('/report/' + user_id)
 //             .then((response) => {
@@ -64,18 +61,20 @@ import { Link } from "react-router-dom";
 // });
 
 export const Register = () => {
-  axios.post('/user/new',
+  const handleSubmit = async (event: {
+    preventDefault: () => void;
+    currentTarget: HTMLFormElement | undefined;
+  }) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const result = await server.post('/user/new',      
     {
-
-    }, {
-    headers: { 'Content-Type': 'application/json' }
-  })
-    .then(function (response) {
-      console.log(response);
+              
+      usuario: data.get("user"),        
+      senha: data.get("password")      
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+    console.log(result.data)
+  };
 
   return (
     <>
@@ -92,6 +91,8 @@ export const Register = () => {
           </Typography>
         </Box>
         <Box
+          component="form"
+          onSubmit={handleSubmit}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -110,26 +111,42 @@ export const Register = () => {
               }}
             >
               <TextField
+                id="nomeInst"
                 name="Nome da instituição"
                 placeholder="Nome da instituição"
               />
               <TextField
+                id="tipoInst"
                 name="Tipo da instituição"
                 placeholder="Tipo da instituição"
               />
-              <TextField name="Nome do usuário" placeholder="Nome do usuário" />
               <TextField
-                name="Nome da instituição"
-                placeholder="Nome da instituição"
+                id="usuario"
+                name="Nome do usuário" 
+                placeholder="Nome do usuário" 
               />
-              <TextField name="Senha" placeholder="Senha" type="password" />
               <TextField
-                name="Repetir senha"
-                placeholder="repetir senha"
+                id="senha"
+                name="Senha"
+                placeholder="Senha"
                 type="password"
               />
-              <TextField name="Cidade" placeholder="Cidade" />
-              <TextField name="Estado" placeholder="Estado" />
+              <TextField
+                id="repSenha"
+                name="Repetir senha"
+                placeholder="Repetir senha"
+                type="password"
+              />
+              <TextField
+                id="cidade"
+                name="Cidade"
+                placeholder="Cidade"
+              />
+              <TextField
+                id="uf"
+                name="Estado"
+                placeholder="Estado"
+              />
             </Stack>
             <Box
               sx={{
@@ -147,11 +164,9 @@ export const Register = () => {
                 cursor: "pointer",
               }} src={gmailIcon} />
               <Stack spacing={2} direction="row" sx={{ mt: 2 }}>
-                <Link to="/">
-                  <Button variant="contained" size="large">
+                  <Button variant="contained" size="large" type="submit">
                     Confirmar
                   </Button>
-                </Link>
                 <Link to="/">
                   <Button
                     variant="outlined" size="large">
