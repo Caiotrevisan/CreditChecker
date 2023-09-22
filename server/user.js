@@ -85,7 +85,8 @@ export async function newUser(req, res) {
     Item: {
       id: uuid(),
       itemType: itemType,
-      ...req.body
+      ...req.body,
+      active: false
     }}
 
   try {

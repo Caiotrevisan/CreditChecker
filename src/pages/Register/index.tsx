@@ -64,7 +64,6 @@ export const Register = () => {
         password: data.get("senha"),
         city: data.get("cidade"),
         state: data.get("uf"),
-        active: false
       })
 
       if (result.data.hasOwnProperty("error")) {
