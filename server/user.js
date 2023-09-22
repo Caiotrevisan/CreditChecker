@@ -94,7 +94,7 @@ export async function newUser(req, res) {
       await dynamodb.put(params).promise()
       res.status(200).json({ userId: params.Item.id })
     } else {
-      res.status(500).json("Usuario já existe, não foi possivel criar o cadastro!")
+      res.status(200).json({ error: "Usuario já existe!" })
     }
   } catch (error) {
       console.error(error)

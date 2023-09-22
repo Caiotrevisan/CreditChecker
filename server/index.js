@@ -3,7 +3,7 @@ import express from "express"
 import { authLogin } from "./auth.js"
 import { getAllUser, checkUser, newUser, updateUser } from "./user.js"
 import { getParam, getUserParam, newParam, updateParam, deleteParam } from "./param.js"
-import { calcTaxa } from "./calc.js"
+import { calcFee } from "./calc.js"
 
 const app = express()
 app.use(express.json())
@@ -53,8 +53,8 @@ app.delete("/params/delete", async (req, res) => {
 })
 
 // Rotas para acesso as funções de cálculo (Validação de parametros enviados pelo cliente)
-app.post("/calc/calctaxa", async (req, res) => {
-  calcTaxa(req, res)
+app.post("/calc/fee", async (req, res) => {
+  calcFee(req, res)
 })
 
 app.listen(3333, () => console.log("Server is running on port 3333"))

@@ -1,6 +1,6 @@
 import { dynamodb } from "./aws.js"
 
-const itemType = "parametro"
+const itemType = "parameter"
 
 /*
 Função para validar os dados e retornar a taxa no corpo da requisição.
@@ -14,24 +14,24 @@ Formato: JSON
     "values": [
      {
         "idCalc": "1",
-        "idade": 18,
-        "salario": 1000,
-        "tipoFinanciamento": "cartao",
-        "valFinanc": 2000,
-        "correntista": false
+        "age": 18,
+        "salary": 1000,
+        "financingType": "cartao",
+        "financVal": 2000,
+        "client": false
     },
     {
         "idCalc": "2",
-        "idade": 25,
-        "salario": 2000,
-        "tipoFinanciamento": "financiamento",
-        "valFinanc": 3000,
-        "correntista": true
+        "age": 25,
+        "salary": 2000,
+        "financingType": "financiamento",
+        "financVal": 3000,
+        "client": true
     }
     ]
 }
 */
-export async function calcTaxa(req, res) {
+export async function calcFee(req, res) {
     const params = {
         TableName: "creditchecker",
         FilterExpression: "itemType = :itemTypeValue AND userId = :userIdValue",
@@ -56,17 +56,17 @@ function calcParam(req, data) {
     req.values.forEach(value => {
         data.forEach(item => {
             if (
-                value.idade >= item.idadeMin && 
-                value.idade <= item.idadeMax &&
-                value.salario >= item.salarioMin &&
-                value.salario <= item.salarioMax &&
-                value.tipoFinanciamento == item.tipoFinanciamento &&
-                value.valFinanc >= item.valFinancMin &&
-                value.valFinanc <= item.valFinancMax &&
-                value.correntista == item.correntista
+                value.age >= item.ageMin && 
+                value.age <= item.ageMax &&
+                value.salary >= item.salaryMin &&
+                value.salary <= item.salaryMax &&
+                value.financingType == item.financingType &&
+                value.financVal >= item.financValMin &&
+                value.financVal <= item.financValMax &&
+                value.client == item.client
                 ) {
                     //console.log(value.idTest)
-                    result.push( { idCalc: value.idCalc, idParam: item.id, taxa: item.taxa } )
+                    result.push( { idCalc: value.idCalc, idParam: item.id, fee: item.fee } )
                 }
             })
         })

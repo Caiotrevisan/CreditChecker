@@ -1,25 +1,25 @@
 import { dynamodb } from "./aws.js"
 
-const itemType = "usuario"
+const itemType = "user"
 
 /*
 Função para authenticar as credenciais do usuario.
 Exemplo de uso: Enviar no corpo da requisição em http://localhost:3333/user/login - método POST
 Formato: JSON
 {
-   "usuario": "teste",
-   "senha": "1234",
+   "user": "teste",
+   "password": "1234",
 }
 */
 export async function authLogin(req, res) {
     const params = {
         TableName: "creditchecker",
         FilterExpression: 
-        "itemType = :itemTypeValue AND usuario = :usuarioValue AND senha = :senhaValue",
+        "itemType = :itemTypeValue AND user = :userValue AND password = :passwordValue",
         ExpressionAttributeValues: {
           ":itemTypeValue": itemType,
-          ":usuarioValue": req.body.usuario,
-          ":senhaValue": req.body.senha
+          ":userValue": req.body.user,
+          ":passwordValue": req.body.password
         },
       }
 

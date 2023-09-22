@@ -1,7 +1,7 @@
 import { dynamodb } from "./aws.js"
 import { v4 as uuid } from "uuid";
 
-const itemType = "parametro"
+const itemType = "parameter"
 
 /*
 Função para retornar todos os dados de um determinado item (parametro) através do seu id.
@@ -55,12 +55,15 @@ Formato: JSON
 {
    "id": "1",
    "userId": 1,
-   "idadeMin": 18,"idadeMax": 21,
-   "salarioMin": 1068,"salarioMax": 2285,
-   "tipoFinanciamento": "Teste",
-   "valFinancMin": 2844,"valFinancMax": 3546,
-   "correntista": true,
-   "taxa": 3
+   "ageMin": 18,
+   "ageMax": 21,
+   "salaryMin": 1068,
+   "salaryMax": 2285,
+   "financingType": "Teste",
+   "financValMin": 2844,
+   "financValMax": 3546,
+   "client": true,
+   "fee": 3
 }
 */
 export async function newParam(req, res) {
@@ -87,7 +90,7 @@ Exemplo de uso: Enviar no corpo da requisição em http://localhost:3333/params/
 Formato: JSON
 {
    "id": "1",
-   "taxa": 3
+   "fee": 3
 }
 */
 export async function updateParam(req, res) {
@@ -97,9 +100,9 @@ export async function updateParam(req, res) {
             id: req.body.id,
             itemType: itemType
           },
-          UpdateExpression: "SET taxa = :newTaxa",
+          UpdateExpression: "SET fee = :newFee",
           ExpressionAttributeValues: {
-            ":newTaxa": req.body.taxa,
+            ":newFee": req.body.taxa,
           },
           ReturnValues: "ALL_NEW"
         }
