@@ -7,7 +7,7 @@ Função para validar os dados e retornar a taxa no corpo da requisição.
 Com o id do usuário (userId) a API irá retornar todos os parametros e validar
 se os dados enviados condizem com alguma taxa registrada no sistema.
 Irá retornar o id do parametro condizente e sua taxa.
-Exemplo de uso: Enviar no corpo da requisição em http://localhost:3333/calc/calctaxa -  método POST
+Exemplo de uso: Enviar no corpo da requisição em http://localhost:3333/calc/fee -  método POST
 Formato: JSON
 {
     "userId": "1234",
