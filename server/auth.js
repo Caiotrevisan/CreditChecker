@@ -12,28 +12,27 @@ Formato: JSON
 }
 */
 export async function authLogin(req, res) {
-    const params = {
-        TableName: "creditchecker",
-        FilterExpression: 
-        "itemType = :itemTypeValue AND userName = :userNameValue AND password = :passwordValue",
-        ExpressionAttributeValues: {
-          ":itemTypeValue": itemType,
-          ":userNameValue": req.body.userName,
-          ":passwordValue": req.body.password
-        },
-      }
+  const params = {
+    TableName: "creditchecker",
+    FilterExpression:
+      "itemType = :itemTypeValue AND userName = :userNameValue AND password = :passwordValue",
+    ExpressionAttributeValues: {
+      ":itemTypeValue": itemType,
+      ":userNameValue": req.body.userName,
+      ":passwordValue": req.body.password
+    },
+  }
+  try {
+    const data = await dynamodb.scan(params).promise()
 
-      try {
-        const data = await dynamodb.scan(params).promise()
-        
-        if (data.Count == 0) {
-          return res.status(200).json({ error: "Dados inválidos" })
-        }
+    if (data.Count == 0) {
+      return res.status(200).json({ error: "Dados inválidos" })
+    }
 
-        res.status(200).json({ userId: data.Items[0].id })
+    res.status(200).json({ userId: data.Items[0].id })
 
-      } catch (error) {
-        console.error(error)
-        res.status(500).json({ error })
-      }
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error })
+  }
 }

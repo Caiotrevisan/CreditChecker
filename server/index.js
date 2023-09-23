@@ -9,7 +9,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-// Rotas para acesso as funções de autenticação (Login)
+// // Rotas para acesso as funções de autenticação (Login)
 app.post("/user/login", async (req, res) => {
   authLogin(req, res)
 })
@@ -40,15 +40,15 @@ app.get("/params/:userId", async (req, res) => {
   getUserParam(req, res, req.params.userId)
 })
 
-app.post("/params/new", async (req, res) => { 
+app.post("/params/new", async (req, res) => {
   newParam(req, res)
 })
 
-app.patch("/params/update", async (req, res) => { 
+app.patch("/params/update", async (req, res) => {
   updateParam(req, res)
 })
 
-app.delete("/params/delete", async (req, res) => { 
+app.delete("/params/delete", async (req, res) => {
   deleteParam(req, res)
 })
 
