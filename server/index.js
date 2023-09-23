@@ -57,4 +57,4 @@ app.post("/calc/fee", async (req, res) => {
   calcFee(req, res)
 })
 
-app.listen(3333, () => console.log("Server is running on port 3333"))
+app.listen(3000, () => console.log("Server is running on port 3333"))
