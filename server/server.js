@@ -8,17 +8,26 @@ import { calcFee } from "./calc.js"
 const app = express()
 app.use(express.json())
 
-// const corsOptions = {
-//   origin: '*', // Permite todas as origens (pode ser configurado para origens específicas)
-//   methods: 'GET,POST,PUT,DELETE,UPDATE', // Métodos permitidos
-//   allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization', // Cabeçalhos permitidos
-// };
-// app.use(cors(corsOptions))
-app.use(cors)
+const corsOptions = {
+  origin: '*', // Permite todas as origens (pode ser configurado para origens específicas)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'UPDATE'], // Métodos permitidos
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'], // Cabeçalhos permitidos
+};
 
-const port = 3000
+app.use(cors(corsOptions))
 
-// // Rotas para acesso as funções de autenticação (Login)
+const port = 3333
+
+// Rota de teste do backend
+app.get("/test", async (req, res) => {
+  res.status(200).json({ message: "API OK!" })
+})
+
+app.get("/test/db", async (req, res) => {
+  res.status(200).json({ message: "Não implementado..." })
+})
+
+// Rotas para acesso as funções de autenticação (Login)
 app.post("/user/login", async (req, res) => {
   authLogin(req, res)
 })

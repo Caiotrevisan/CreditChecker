@@ -1,8 +1,8 @@
 import aws from "aws-sdk"
 
 aws.config.update({
-    accessKeyId: "AKIAVAXA4HWPHVP3VG4J",
-    secretAccessKey: "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",
+    accessKeyId: "AKIAVAXA4HWPCQX3LO3T",
+    secretAccessKey: "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",
     region: 'sa-east-1'
 }); // Substitua pela sua região
 export const dynamodb = new aws.DynamoDB.DocumentClient();
