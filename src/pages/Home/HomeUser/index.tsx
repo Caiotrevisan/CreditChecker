@@ -137,39 +137,31 @@ export const HomeUser = () => {
           <P style={{ width: "15%", textAlign: "center" }}>Resultado</P>
           <P style={{ width: "82%", textAlign: "center" }}>Parâmetros/Condições</P>
         </div>
-        <header style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
+        <header style={{ display: "flex", gap: "5px", justifyContent: "center", marginBottom: "12px" }}>
           <ListHeaderEl>Taxa</ListHeaderEl>
-          <ListHeaderEl>Idade Mínima</ListHeaderEl>
-          <ListHeaderEl>Idade Máxima</ListHeaderEl>
-          <ListHeaderEl>Salário Mínimo</ListHeaderEl>
-          <ListHeaderEl>Salário Máximo</ListHeaderEl>
-          <ListHeaderEl>Tipo de Financiamento</ListHeaderEl>
-          <ListHeaderEl>Valor Mínimo</ListHeaderEl>
-          <ListHeaderEl>Valor Máximo</ListHeaderEl>
+          <ListHeaderEl>Idade</ListHeaderEl>
+          <ListHeaderEl>Salário</ListHeaderEl>
+          <ListHeaderEl>Financiamento</ListHeaderEl>
+          <ListHeaderEl>Valor</ListHeaderEl>
           <ListHeaderEl>Correntista</ListHeaderEl>
           <ListHeaderEl>Ações</ListHeaderEl>
 
         </header>
-        <div style={{ width: "1650px", margin: "0 auto" }}>
+        <div>
           {
             parameters.map(el => {
               console.log(el)
               return (
-                <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
-                  <Campos style={{ background: "#99EAE1" }}>{el.fee}</Campos>
-                  <Campos style={{ background: "#99EAE1" }}>{el.ageMin}</Campos>
-                  <Campos style={{ background: "#99EAE1" }}>{el.ageMax}</Campos>
-                  <Campos style={{ background: "#99EAE1" }}>{el.salaryMin}</Campos>
-                  <Campos style={{ background: "#99EAE1" }}>{el.salaryMax}</Campos>
-                  <Campos style={{ background: "#99EAE1" }}>{el.financingType}</Campos>
-                  <Campos style={{ background: "#99EAE1" }}>{el.financValMin}</Campos>
-                  <Campos style={{ background: "#99EAE1" }}>{el.financValMax}</Campos>
-                  <Campos style={{ background: "#99EAE1" }}>{String(el.client)}</Campos>
+                <div style={{ display: "flex", flexDirection: "row", gap: "5px", justifyContent: "center", marginBottom: "12px" }}>
+                  <CampoHighLigth>{`${el.fee}`}</CampoHighLigth>
+                  <Campos>{`${el.ageMin} - ${el.ageMax}`}</Campos>
+                  <Campos>{`${el.salaryMin} - ${el.salaryMax}`}</Campos>
+                  <Campos>{el.financingType}</Campos>
+                  <Campos>{`${el.financValMin} - ${el.financValMax}`}</Campos>
+                  <Campos>{String(el.client)}</Campos>
 
-                  <div>
-                    <button>Delete</button>
-                    <button>Update</button>
-                  </div>
+                  <ButtonParam>Atualizar</ButtonParam>
+                  <ButtonParam>Remover</ButtonParam>
                 </div>
               )
             })
@@ -192,7 +184,7 @@ const Button = styled.button`
     cursor: pointer;
 `;
 
-const Campos = styled.div`
+const ButtonParam = styled.button`
 color: #FFF;
 font-size: 20px;
 font-weight: 400;
@@ -201,9 +193,8 @@ background-color: #99EAE1;
 border-radius: 5px;
 text-align: center;
 margin: 0;
-width: 150px;
+width: 72px;
 `;
-
 
 const Upload = styled.label`
 width: 141px;
@@ -232,6 +223,30 @@ font-size: 20px;
 font-weight: 400;
 padding: 5px 0;
 background-color: #99EAE1;
+border-radius: 5px;
+text-align: center;
+margin: 0;
+width: 150px;
+`;
+
+const CampoHighLigth = styled.div`
+color: #FFF;
+font-size: 20px;
+font-weight: 400;
+padding: 5px 0;
+background-color: #99EAE1;
+border-radius: 5px;
+text-align: center;
+margin: 0;
+width: 150px;
+`;
+
+const Campos = styled.div`
+color: #FFF;
+font-size: 20px;
+font-weight: 400;
+padding: 5px 0;
+background-color: #DDDDDD;
 border-radius: 5px;
 text-align: center;
 margin: 0;
