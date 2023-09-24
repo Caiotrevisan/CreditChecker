@@ -12,9 +12,9 @@ export const HomeUser = () => {
     <div>
       <p>Usuário não autenticado!</p>
     </div>
-    )
+    );
   } else {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true); // Adicione o estado de carregamento
   const [parameters, setParameters] = useState([]); // Adicione o estado de carregamento
 
@@ -34,7 +34,7 @@ export const HomeUser = () => {
     }
   }, [loading]);
 
-  console.log(parameters)
+  console.log(parameters);
 
   let jsonResult = {}
 

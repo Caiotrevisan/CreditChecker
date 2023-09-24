@@ -56,7 +56,8 @@ export const Register = () => {
       return alert("As senhas não coincidem!");
     };
 
-    const result = await server.post('/user/new',      
+    try {
+      const result = await server.post('/user/new',      
       {
         institutionName: data.get("nomeInst"),
         institutionType: data.get("tipoInst"),
@@ -69,8 +70,13 @@ export const Register = () => {
       if (result.data.hasOwnProperty("error")) {
         return alert(result.data.error)
       }
-
+      
       return console.log(result.data)
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao efetuar cadastro: " + error);
+      // Trate erros de requisição aqui, se necessário
+    }
   };
 
   return (

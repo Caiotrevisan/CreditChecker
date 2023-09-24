@@ -21,7 +21,7 @@ export const RegisterUpdate = () => {
         <div>
           <p>Usuário não autenticado!</p>
         </div>
-        )
+        );
     } else {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -39,20 +39,27 @@ export const RegisterUpdate = () => {
 
         if (data.get("senha").length < 5) {
             return alert("Preencha a senha de usuário!");
-          }
+        };
           if (data.get("repSenha").length < 5) {
             return alert("Repita a senha de usuário!");
-          }
+        };
         if (data.get("senha") != data.get("repSenha")) {
             return alert("As senhas não coincidem!");
-          };
+        };
 
-        const result = await server.patch('/user/update',
+        try {
+            const result = await server.patch('/user/update',
             {
                 id: localStorage.getItem("userId"),
                 password: data.get("senha")
-            })
-        console.log(result.data)
+            });
+        console.log(result.data);
+        alert(result.data);
+        } catch (error) {
+            console.error(error);
+            alert("Erro ao efetuar atualizacao: " + error);
+            // Trate erros de requisição aqui, se necessário
+        }
     };
 
     return (

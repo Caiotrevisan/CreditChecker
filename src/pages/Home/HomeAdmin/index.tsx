@@ -11,12 +11,12 @@ export const HomeAdmin = () => {
     <div>
       <p>Usuário não autenticado!</p>
     </div>
-    )
+    );
   } else {
   // Colocar dentro do laço de contrução dos Elementos da tabela
   const isActive = true;
-  const [modal, setModal] = useState(false)
-  const [users, setUsers] = useState([])
+  const [modal, setModal] = useState(false);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true); // Adicione o estado de carregamento
   
   useEffect(() => {
@@ -42,7 +42,7 @@ export const HomeAdmin = () => {
     })
       .then((response) => {
         console.log(response);
-        window.location.reload()
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
