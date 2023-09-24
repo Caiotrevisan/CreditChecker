@@ -19,7 +19,7 @@ export const HomeUser = () => {
 
     const reader = new FileReader();
 
-    reader.onload = function (e) {
+    reader.onload = async function (e) {
       const csv = e.target.result;
       const lines = csv.split('\n');
       const headers = lines[0].split(',');
@@ -36,7 +36,14 @@ export const HomeUser = () => {
 
       //Imprime o Json
       console.log(result);
-      jsonResult = result;
+
+      const result2 = await server.post('/params/new', result) 
+
+    if (result2.data.hasOwnProperty("error")) {
+      return alert(result2.data.error)
+    }
+
+    return console.log(result2.data)
 
 
     };
@@ -45,13 +52,7 @@ export const HomeUser = () => {
 
     //Aqui você pode adicionar mais lógica para processar ou enviar o arquivo para o servidor, se necessário
 
-    const result2 = await server.post('/user/new', JSON.stringify(jsonResult)) 
-
-    if (result2.data.hasOwnProperty("error")) {
-      return alert(result2.data.error)
-    }
-
-    return console.log(result2.data)
+    
   };
 
 
