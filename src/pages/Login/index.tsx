@@ -31,14 +31,27 @@ export default function Login() {
   }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(data)
+    //console.log(data)
     const result = await server.post('/user/login',      
     {        
       userName: data.get("user"),
       password: data.get("password")
     })
-    console.log(result.data)
+    console.log(result.data.itemType)
+    validate(result.data)
   };
+
+  function validate (value: any) {
+    console.log(value)
+    if (value.itemType == "admin") {
+      console.log(value)
+      return window.location.href = "/HomeAdmin"
+    } else if (value.itemType == "user") {
+      console.log(value)
+      return window.location.href = "/HomeUser"
+    }
+    alert(value.error)
+  }
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
