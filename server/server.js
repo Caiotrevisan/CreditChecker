@@ -20,7 +20,7 @@ app.post("/user/info", async (req, res) => {
   getUser(req, res)
 })
 
-app.post("/user/getall", async (req, res) => {
+app.get("/user/getall", async (req, res) => {
   getAllUser(req, res)
 })
 
