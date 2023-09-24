@@ -1,12 +1,71 @@
 import styled from 'styled-components';
+import server from "@/server";
 
 import home from "../../../assets/home.svg"
 import printer from "../../../assets/printer.svg"
-
+import { useState } from 'react';
 
 export const HomeAdmin = () => {
   // Colocar dentro do laço de contrução dos Elementos da tabela
   const isActive = true;
+
+  const data = [
+    {
+      "city": "sao Paulo",
+      "password": "12345",
+      "active": false,
+      "institutionName": "banco SA",
+      "institutionType": "banco",
+      "userName": "teste",
+      "itemType": "user",
+      "id": "833a528b-4e68-411e-995b-d7201e618aab",
+      "state": "SP"
+    },
+    {
+      "city": "Sampa",
+      "password": "12345",
+      "active": true,
+      "institutionName": "Teste",
+      "institutionType": "Banco",
+      "userName": "teste1",
+      "itemType": "user",
+      "id": "8dd2c249-a076-4f83-94a1-f3e3c44a54ea",
+      "state": "SP"
+    },
+    {
+      "city": "12345",
+      "password": "12345",
+      "active": false,
+      "institutionName": "12345",
+      "institutionType": "12345",
+      "userName": "12345",
+      "itemType": "user",
+      "id": "162cb2ac-dfd7-4835-96b9-cb719b395ffa",
+      "state": "12345"
+    },
+    {
+      "city": "Sampa",
+      "password": "12345",
+      "active": false,
+      "institutionName": "Teste",
+      "institutionType": "Banco",
+      "userName": "teste2",
+      "itemType": "user",
+      "id": "038a052b-3ef6-4552-96d5-608fb5ee4f16",
+      "state": "SP"
+    }
+  ]
+
+  const [modal, setModal] = useState(false)
+  const [users, setUsers] = useState()
+  server.get('/user/getall')
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      // setTimeout(() => window.location.href = "/Login", 2000)
+    })
+
 
   return (
     <>
@@ -21,7 +80,7 @@ export const HomeAdmin = () => {
           <img src={home} />
           <p>Home Administrador</p>
         </div>
-        <Button>Sair</Button>
+        <Button onClick={() => window.location.href = "/"}>Sair</Button>
       </header >
       <main>
         <PageTitle>Lista de usuários</PageTitle>
@@ -30,33 +89,43 @@ export const HomeAdmin = () => {
             <ListHeaderEl style={{ width: "150px" }}>Usuário</ListHeaderEl>
             <ListHeaderEl style={{ width: "400px" }}>Nome da instituição</ListHeaderEl>
             <ListHeaderEl style={{ width: "150px" }}>Situação</ListHeaderEl>
-            <ListHeaderEl style={{ width: "150px" }}>Imprimir</ListHeaderEl>
           </header>
           <main>
-            {/* Adicionar a chamada axios aqui, utilizar a div */}
-            <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
-              {/* mudar os valores dos listMainEl pelos dados da api */}
-              <ListMainEl style={{ width: "150px" }}>User1</ListMainEl>
-              <ListMainEl style={{ width: "400px" }}>Instituition</ListMainEl>
-              {
-                isActive ?
-                  <div style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #99EAE1", cursor: "pointer" }} >
-                    <p style={{ width: "15px", height: "15px", background: "#99EAE1", borderRadius: "100%", margin: "0" }}></p>
-                    <ElActive>Active</ElActive>
+            {
+              data.map(el => {
+                return (
+                  <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
+                    {/* mudar os valores dos listMainEl pelos dados da api */}
+                    <ListMainEl style={{ width: "150px" }}>{el.userName}</ListMainEl>
+                    <ListMainEl style={{ width: "400px" }}>{el.institutionName}</ListMainEl>
+                    {
+                      el.active ?
+                        <div onClick={() => setModal(modal)}
+                          style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #99EAE1", cursor: "pointer" }} >
+                          <p style={{ width: "15px", height: "15px", background: "#99EAE1", borderRadius: "100%", margin: "0" }}></p>
+                          <ElActive>Active</ElActive>
+                        </div>
+                        :
+                        <div onClick={() => setModal(modal)}
+                          style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #F0F0F0", cursor: "pointer" }} >
+                          <p style={{ width: "15px", height: "15px", background: "#F0F0F0", borderRadius: "100%", margin: "0" }}></p>
+                          <ElDisabled>Disabled</ElDisabled>
+                        </div>
+                    }
                   </div>
-                  :
-                  <div style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #F0F0F0", cursor: "pointer" }} >
-                    <p style={{ width: "15px", height: "15px", background: "#F0F0F0", borderRadius: "100%", margin: "0" }}></p>
-                    <ElDisabled>Disabled</ElDisabled>
-                  </div>
-              }
-              <ListMainEl style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "150px", cursor: "pointer" }}>
-                <img src={printer} alt="" />
-              </ListMainEl>
-            </div>
+                )
+              })
+            }
           </main>
         </div>
       </main>
+      {
+        modal ?
+          <div>
+
+          </div> :
+          ""
+      }
     </>
   );
 };
