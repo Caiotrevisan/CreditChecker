@@ -62,6 +62,7 @@ export const HomeAdmin = () => {
   // server.get('/user/getall')
   //   .then((response) => {
   //     console.log(response);
+  // setUsers(response.data)
   //   })
   //   .catch((error) => {
   //     console.log(error);
