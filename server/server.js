@@ -8,7 +8,7 @@ import { calcFee } from "./calc.js"
 const app = express()
 app.use(express.json())
 app.use(cors())
-const port = 80
+const port = 3000
 
 // // Rotas para acesso as funções de autenticação (Login)
 app.post("/user/login", async (req, res) => {
@@ -20,7 +20,7 @@ app.post("/user/info", async (req, res) => {
   getUser(req, res)
 })
 
-app.post("/user/getall", async (req, res) => {
+app.get("/user/getall", async (req, res) => {
   getAllUser(req, res)
 })
 

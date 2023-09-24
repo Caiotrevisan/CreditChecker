@@ -65,7 +65,7 @@ export async function getUser(req, res) {
 
 /*
 Função para retornar todos os usuarios.
-Exemplo de uso: Acessar http://localhost:3333/user/getall - método POST
+Exemplo de uso: Acessar http://localhost:3333/user/getall - método GET
 */
 export async function getAllUser(req, res) {
   const params = {
