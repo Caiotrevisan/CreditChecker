@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import server from "@/server"
 import home from "../../../assets/home.svg"
 import menu from "../../../assets/menu.svg"
 import { useState } from 'react';
@@ -7,43 +7,54 @@ import { useState } from 'react';
 export const HomeUser = () => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleFileUpload = (event: any) => {
-    const [csvData, setCSVData] = useState([]);
-    const handleFileUpload = (e: any) => {
-      const file = e.target.files[0];
+  let jsonResult = {}
 
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event: any) => {
-          const content = event.target.result;
-          // Chame uma função para converter o CSV em JSON
-          console.log(content);
+  async function handleFileUpload(event) {
+    const file = event.target.files[0]; // Obtém o arquivo selecionado pelo usuário
+    if (!file) {
+      // Caso o usuário não tenha selecionado nenhum arquivo
+      console.log("Nenhum arquivo selecionado.");
+      return;
+    }
 
-          const jsonData: any = csvToJSON(content);
-          setCSVData(jsonData);
-        };
-        reader.readAsText(file);
-      }
-    };
+    const reader = new FileReader();
 
-    // Função para converter o CSV em JSON
-    const csvToJSON = (csv: any) => {
+    reader.onload = function (e) {
+      const csv = e.target.result;
       const lines = csv.split('\n');
       const headers = lines[0].split(',');
       const result = [];
+
       for (let i = 1; i < lines.length; i++) {
         const data = lines[i].split(',');
-        const row: any = {};
+        const row = {};
         for (let j = 0; j < headers.length; j++) {
           row[headers[j]] = data[j];
         }
         result.push(row);
       }
-      return result;
+
+      //Imprime o Json
+      console.log(result);
+      jsonResult = result;
+
+
     };
 
-    // console.log(JSON.stringify(csvData, null, 2));
-  }
+    reader.readAsText(file);
+
+    //Aqui você pode adicionar mais lógica para processar ou enviar o arquivo para o servidor, se necessário
+
+    const result2 = await server.post('/user/new', JSON.stringify(jsonResult)) 
+
+    if (result2.data.hasOwnProperty("error")) {
+      return alert(result2.data.error)
+    }
+
+    return console.log(result2.data)
+  };
+
+
 
   return (
     <>
@@ -155,4 +166,3 @@ const ActButton = styled.button`
     color: white;
   }
 `
-
