@@ -36,21 +36,24 @@ export default function Login() {
     {        
       userName: data.get("user"),
       password: data.get("password")
-    })
-    console.log(result.data.itemType)
-    validate(result.data)
+    });
+    console.log(result.data.itemType);
+    validate(result.data);
   };
 
   function validate (value: any) {
-    console.log(value)
-    if (value.itemType == "admin") {
-      console.log(value)
-      return window.location.href = "/HomeAdmin"
-    } else if (value.itemType == "user") {
-      console.log(value)
-      return window.location.href = "/HomeUser"
+    console.log(value);
+    if (value.error) { return alert(value.error) }
+    if (value.active == true) {
+      if (value.itemType == "admin") {
+        console.log(value);
+        return window.location.href = "/HomeAdmin"
+      } else if (value.itemType == "user") {
+        console.log(value);
+        return window.location.href = "/HomeUser"
+      }
     }
-    alert(value.error)
+    return alert("Usuário inativo, entre em contato com o administrador.")
   }
 
   return (
