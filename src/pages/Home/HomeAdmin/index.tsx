@@ -9,7 +9,7 @@ export const HomeAdmin = () => {
   // Colocar dentro do laço de contrução dos Elementos da tabela
   const isActive = true;
 
-  const data = [
+  const users = [
     {
       "city": "sao Paulo",
       "password": "12345",
@@ -57,15 +57,32 @@ export const HomeAdmin = () => {
   ]
 
   const [modal, setModal] = useState(false)
-  const [users, setUsers] = useState()
-  server.get('/user/getall')
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      // setTimeout(() => window.location.href = "/Login", 2000)
-    })
+  // const [users, setUsers] = useState()
 
+  // server.get('/user/getall')
+  //   .then((response) => {
+  //     console.log(response);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //     // setTimeout(() => window.location.href = "/Login", 2000)
+  //   })
+
+
+  function changeActive(active: any, userId: string) {
+    server.post('/user/status', {
+      id: userId,
+      active
+    })
+      .then((response) => {
+        console.log(response);
+        window.location.reload()
+      })
+      .catch((error) => {
+        console.log(error);
+        // setTimeout(() => window.location.href = "/Login", 2000)
+      })
+  }
 
   return (
     <>
@@ -92,21 +109,20 @@ export const HomeAdmin = () => {
           </header>
           <main>
             {
-              data.map(el => {
+              users.map(el => {
                 return (
                   <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
-                    {/* mudar os valores dos listMainEl pelos dados da api */}
                     <ListMainEl style={{ width: "150px" }}>{el.userName}</ListMainEl>
                     <ListMainEl style={{ width: "400px" }}>{el.institutionName}</ListMainEl>
                     {
                       el.active ?
-                        <div onClick={() => setModal(modal)}
+                        <div onClick={() => changeActive(true, el.id)}
                           style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #99EAE1", cursor: "pointer" }} >
                           <p style={{ width: "15px", height: "15px", background: "#99EAE1", borderRadius: "100%", margin: "0" }}></p>
                           <ElActive>Active</ElActive>
                         </div>
                         :
-                        <div onClick={() => setModal(modal)}
+                        <div onClick={() => changeActive(false, el.id)}
                           style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #F0F0F0", cursor: "pointer" }} >
                           <p style={{ width: "15px", height: "15px", background: "#F0F0F0", borderRadius: "100%", margin: "0" }}></p>
                           <ElDisabled>Disabled</ElDisabled>
@@ -121,8 +137,9 @@ export const HomeAdmin = () => {
       </main>
       {
         modal ?
-          <div>
-
+          <div style={{ width: "300px", height: "200px", padding: "10px", position: "absolute", top: "0", right: "0", bottom: "0", left: "0", margin: "auto", textAlign: "center", background: "black", color: "white", display: "flex", justifyContent: "center" }} >
+            <p>Deseja aceitar esse usuário</p>
+            <Button>Confirmar</Button>
           </div> :
           ""
       }
