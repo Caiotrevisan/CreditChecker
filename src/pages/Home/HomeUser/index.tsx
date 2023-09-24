@@ -156,9 +156,9 @@ export const HomeUser = () => {
                   <CampoHighLigth>{`${el.fee}`}</CampoHighLigth>
                   <Campos>{`${el.ageMin} - ${el.ageMax}`}</Campos>
                   <Campos>{`${el.salaryMin} - ${el.salaryMax}`}</Campos>
-                  <Campos>{el.financingType}</Campos>
+                  <Campos>{`${el.financingType}`}</Campos>
                   <Campos>{`${el.financValMin} - ${el.financValMax}`}</Campos>
-                  <Campos>{String(el.client)}</Campos>
+                  <Campos>{ el.client ? "Sim" : "Não" }</Campos>
 
                   <ButtonParam>Atualizar</ButtonParam>
                   <ButtonParam>Remover</ButtonParam>
