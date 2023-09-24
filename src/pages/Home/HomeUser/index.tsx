@@ -3,6 +3,7 @@ import server from "@/server"
 import home from "../../../assets/home.svg"
 import menu from "../../../assets/menu.svg"
 import { useState, useEffect } from 'react';
+import { Refresh } from '@mui/icons-material';
 
 
 export const HomeUser = () => {
@@ -82,6 +83,8 @@ export const HomeUser = () => {
         }
 
         console.log(response.data);
+        alert("Envio de arquivo efetuado com sucesso!");
+        window.location.reload();
       } catch (error) {
         console.error(error);
         // Trate erros de requisição aqui, se necessário
@@ -92,6 +95,29 @@ export const HomeUser = () => {
     //Aqui você pode adicionar mais lógica para processar ou enviar o arquivo para o servidor, se necessário
 
   };
+
+  async function handleUpdateItem(id: string) {
+    console.log(id);
+  }
+
+  async function handleDeleteItem(paramId: string) {
+    try {
+      const result = await server.delete('/params/delete',
+            {
+                data: {
+                  id: paramId,
+                  userId: localStorage.getItem("userId")
+                }
+            });
+        //console.log(result.data)
+        alert("Parametro removido com sucesso!");
+        window.location.reload();
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao remover o parametro: " + error);
+      // Trate erros de requisição aqui, se necessário
+    }
+  }
 
   function handleLogout() {
     localStorage.clear();
@@ -160,9 +186,8 @@ export const HomeUser = () => {
                   <Campos>{`${el.financingType}`}</Campos>
                   <Campos>{`${el.financValMin} - ${el.financValMax}`}</Campos>
                   <Campos>{ el.client ? "Sim" : "Não" }</Campos>
-
-                  <ButtonParam>Atualizar</ButtonParam>
-                  <ButtonParam>Remover</ButtonParam>
+                  <ButtonParam onClick={ () => handleUpdateItem(el.id)}>Atualizar</ButtonParam>
+                  <ButtonParam onClick={ () => handleDeleteItem(el.id)}>Remover</ButtonParam>
                 </div>
               )
             })
