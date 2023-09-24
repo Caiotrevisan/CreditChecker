@@ -6,6 +6,13 @@ import printer from "../../../assets/printer.svg"
 import { useState, useEffect } from 'react';
 
 export const HomeAdmin = () => {
+  if (localStorage.getItem("itemType") != "admin") {
+    return (
+    <div>
+      <p>Usuário não autenticado!</p>
+    </div>
+    )
+  } else {
   // Colocar dentro do laço de contrução dos Elementos da tabela
   const isActive = true;
   const [modal, setModal] = useState(false)
@@ -42,12 +49,7 @@ export const HomeAdmin = () => {
         // setTimeout(() => window.location.href = "/Login", 2000)
       })
   }
-
-  if (localStorage.getItem("itemType") != "admin") {
-    return (<div>
-      <p>Usuário não autenticado!</p>
-    </div>)
-  } else {
+  
     return (
       <>
         <header style={{ display: "flex", justifyContent: "space-between", alignItems: 'center', padding: "20px 40px" }}>
