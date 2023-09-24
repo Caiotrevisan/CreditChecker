@@ -9,6 +9,27 @@ export const HomeUser = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(true); // Adicione o estado de carregamento
 
+  const [parameters, setParameters] = useState([]); // Adicione o estado de carregamento
+
+
+
+  useEffect(() => {
+    if (loading) {
+      server.get('/params/833a528b-4e68-411e-995b-d7201e618aab')
+        .then((response: any) => {
+          console.log(response);
+          setParameters(response.data); // Defina o estado de carregamento como falso após o carregamento bem-sucedido
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          // setTimeout(() => window.location.href = "/Login", 2000)
+          setLoading(false);
+        });
+    }
+  }, [loading]);
+
+  console.log(parameters)
 
   let jsonResult = {}
 
@@ -69,35 +90,7 @@ export const HomeUser = () => {
 
   };
 
-  const [parameters, setParameters] = useState([]); // Adicione o estado de carregamento
 
-  server.get('/params/833a528b-4e68-411e-995b-d7201e618aab')
-    .then((response: any) => {
-      console.log("response:", response);
-      setParameters(response.data); // Defina o estado de carregamento como falso após o carregamento bem-sucedido
-      setLoading(false);
-    })
-    .catch((error) => {
-      console.log("error: ", error);
-      // setTimeout(() => window.location.href = "/Login", 2000)
-      setLoading(false);
-    });
-
-  useEffect(() => {
-    if (loading) {
-      // server.get('/params/833a528b-4e68-411e-995b-d7201e618aab')
-      //   .then((response: any) => {
-      //     console.log(response);
-      //     setParameters(response.data); // Defina o estado de carregamento como falso após o carregamento bem-sucedido
-      //     setLoading(false);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //     // setTimeout(() => window.location.href = "/Login", 2000)
-      //     setLoading(false);
-      //   });
-    }
-  }, [loading]);
 
   return (
     <>
@@ -140,30 +133,34 @@ export const HomeUser = () => {
           <P style={{ width: "82%", textAlign: "center" }}>Parâmetros/Condições</P>
         </div>
         <header style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
-          <ListHeaderEl>Taxa</ListHeaderEl>
-          <ListHeaderEl>Idade Mínima</ListHeaderEl>
-          <ListHeaderEl>Idade Máxima</ListHeaderEl>
-          <ListHeaderEl>Salário Mínimo</ListHeaderEl>
-          <ListHeaderEl>Salário Máximo</ListHeaderEl>
-          <ListHeaderEl>Tipo de Financiamento</ListHeaderEl>
-          <ListHeaderEl>Valor Mínimo</ListHeaderEl>
-          <ListHeaderEl>Valor Máximo</ListHeaderEl>
-          <ListHeaderEl>Correntista</ListHeaderEl>
-        </header>
-        <div>
+          <p style={{ color: #FFF, font-size: 20px,font- weight: 400,padding: 5px 0,background - color: #99EAE1,border - radius: 5px,text - align: center,margin: 0,
+width: 150px}}>Taxa</p>
+
+        <ListHeaderEl>Idade Mínima</ListHeaderEl>
+        <ListHeaderEl>Idade Máxima</ListHeaderEl>
+        <ListHeaderEl>Salário Mínimo</ListHeaderEl>
+        <ListHeaderEl>Salário Máximo</ListHeaderEl>
+        <ListHeaderEl>Tipo de Financiamento</ListHeaderEl>
+        <ListHeaderEl>Valor Mínimo</ListHeaderEl>
+        <ListHeaderEl>Valor Máximo</ListHeaderEl>
+        <ListHeaderEl>Correntista</ListHeaderEl>
+      </header>
+      {/* <div>
           {
             parameters.map(el => {
+              console.log(el)
               return (
-                <div>
-
-                </div>
+                <Campos>
+                  {el.fee}
+                </Campos>
 
               )
             })
           }
-        </div>
-        <input style={{ display: "none" }} type="file" id="arquivo_csv" name="arquivo_csv" accept=".csv" onChange={handleFileUpload}></input>
-      </main >
+        </div> */}
+
+      <input style={{ display: "none" }} type="file" id="arquivo_csv" name="arquivo_csv" accept=".csv" onChange={handleFileUpload}></input>
+    </main >
     </>
   );
 };
@@ -177,8 +174,8 @@ const Button = styled.button`
     cursor: pointer;
 `;
 
-const Upload = styled.label`
-  width: 141px;
+const Campos = styled.div`
+width: 141px;
   height: 40px;
   border-radius: 5px;
   background: #99EAE1;
@@ -186,55 +183,67 @@ const Upload = styled.label`
   color: white;
   font-size: 16px;
   padding: 10px;
-  cursor: pointer;
-  
+`;
+
+
+const Upload = styled.label`
+width: 141px;
+height: 40px;
+border - radius: 5px;
+background: #99EAE1;
+border: none;
+color: white;
+font - size: 16px;
+padding: 10px;
+cursor: pointer;
+
 `;
 
 const H3 = styled.h3`
-  color: var(--Black1, #04022A);
-  font-family: Poppins;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+color: var(--Black1, #04022A);
+font - family: Poppins;
+font - size: 32px;
+font - style: normal;
+font - weight: 500;
+line - height: normal;
 `
 
 const ListHeaderEl = styled.p`
-  color: #FFF;
-  font-size: 20px;
-  font-weight: 400;
-  padding: 5px 0;
-  background-color: #99EAE1;
-  border-radius: 5px;
-  text-align: center;
-  margin: 0;
-  width: 150px;
+color: #FFF;
+font - size: 20px;
+font - weight: 400;
+padding: 5px 0;
+background - color: #99EAE1;
+border - radius: 5px;
+text - align: center;
+margin: 0;
+width: 150px;
 `;
 
 const P = styled.p`
-  color:  #04022A;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #E0E0E0;
+color:  #04022A;
+font - size: 16px;
+font - style: normal;
+font - weight: 500;
+line - height: normal;
+padding - bottom: 20px;
+border - bottom: 1px solid #E0E0E0;
 `
 
 const ActButton = styled.button`
-    color: #818094;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-align: center;
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 5px 10px;
+color: #818094;
+font - size: 16px;
+font - style: normal;
+font - weight: 400;
+line - height: normal;
+text - align: center;
+border: none;
+background: none;
+cursor: pointer;
+padding: 5px 10px;
 
   &:hover {
-    background: #99EAE1;
-    color: white;
-  }
+  background: #99EAE1;
+  color: white;
+}
 `
