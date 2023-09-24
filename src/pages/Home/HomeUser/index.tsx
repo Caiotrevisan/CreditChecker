@@ -37,13 +37,13 @@ export const HomeUser = () => {
       //Imprime o Json
       console.log(result);
 
-      const result2 = await server.post('/params/new', result) 
+      const result2 = await server.post('/params/new', result)
 
-    if (result2.data.hasOwnProperty("error")) {
-      return alert(result2.data.error)
-    }
+      if (result2.data.hasOwnProperty("error")) {
+        return alert(result2.data.error)
+      }
 
-    return console.log(result2.data)
+      return console.log(result2.data)
 
 
     };
@@ -52,7 +52,7 @@ export const HomeUser = () => {
 
     //Aqui você pode adicionar mais lógica para processar ou enviar o arquivo para o servidor, se necessário
 
-    
+
   };
 
 
@@ -95,14 +95,17 @@ export const HomeUser = () => {
         </div>
         <header style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
           <ListHeaderEl>Taxa</ListHeaderEl>
-          <ListHeaderEl>Idade</ListHeaderEl>
-          <ListHeaderEl>Salário</ListHeaderEl>
-          <ListHeaderEl>Financiamento</ListHeaderEl>
-          <ListHeaderEl>Valor</ListHeaderEl>
+          <ListHeaderEl>Idade Mínima</ListHeaderEl>
+          <ListHeaderEl>Idade Máxima</ListHeaderEl>
+          <ListHeaderEl>Salário Mínimo</ListHeaderEl>
+          <ListHeaderEl>Salário Máximo</ListHeaderEl>
+          <ListHeaderEl>Tipo de Financiamento</ListHeaderEl>
+          <ListHeaderEl>Valor Mínimo</ListHeaderEl>
+          <ListHeaderEl>Valor Máximo</ListHeaderEl>
           <ListHeaderEl>Correntista</ListHeaderEl>
         </header>
-        <label htmlFor="arquivo_csv" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "970px", height: "300px", margin: "0 auto", border: "3px dotted #99EAE1", color: "#99EAE1", borderRadius: "5px", cursor: "pointer" }} >
-          +
+        <label htmlFor="arquivo_csv" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "1540px", height: "300px", margin: "0 auto", border: "3px dotted #99EAE1", color: "#99EAE1", borderRadius: "5px", cursor: "pointer" }} >
+          + Fazer Upload de Arquivo CSV
         </label>
         <input style={{ display: "none" }} type="file" id="arquivo_csv" name="arquivo_csv" accept=".csv" onChange={handleFileUpload}></input>
       </main >
