@@ -18,6 +18,8 @@ import { useState } from "react";
 import server from "@/server";
 
 export default function Login() {
+  localStorage.clear();
+  
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (
@@ -37,19 +39,23 @@ export default function Login() {
       userName: data.get("user"),
       password: data.get("password")
     });
-    console.log(result.data.itemType);
+    //console.log(result.data.itemType);
     validate(result.data);
   };
 
   function validate (value: any) {
-    console.log(value);
+    //console.log(value);
     if (value.error) { return alert(value.error) }
     if (value.active == true) {
       if (value.itemType == "admin") {
-        console.log(value);
+        localStorage.setItem("itemType", value.itemType);
+        localStorage.setItem("userId", value.userId);
+        console.log(localStorage)
         return window.location.href = "/HomeAdmin"
       } else if (value.itemType == "user") {
-        console.log(value);
+        localStorage.setItem("itemType", value.itemType);
+        localStorage.setItem("userId", value.userId);
+        console.log(localStorage)
         return window.location.href = "/HomeUser"
       }
     }

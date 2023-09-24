@@ -43,69 +43,74 @@ export const HomeAdmin = () => {
       })
   }
 
-  return (
-    <>
-      <header style={{ display: "flex", justifyContent: "space-between", alignItems: 'center', padding: "20px 40px" }}>
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          fontSize: "20px",
-          gap: "8px",
-          color: "#04022A"
-        }}>
-          <img src={home} />
-          <p>Home Administrador</p>
-        </div>
-        <Button onClick={() => window.location.href = "/"}>Sair</Button>
-      </header >
-      <main>
-        <PageTitle>Lista de usuários</PageTitle>
-        <div>
-          <header style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
-            <ListHeaderEl style={{ width: "150px" }}>Usuário</ListHeaderEl>
-            <ListHeaderEl style={{ width: "400px" }}>Nome da instituição</ListHeaderEl>
-            <ListHeaderEl style={{ width: "150px" }}>Situação</ListHeaderEl>
-          </header>
-          <main>
-            {
-              users.map(el => {
-                return (
-                  <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
-                    <ListMainEl style={{ width: "150px" }}>{el.userName}</ListMainEl>
-                    <ListMainEl style={{ width: "400px" }}>{el.institutionName}</ListMainEl>
-                    {
-                      el.active ?
-                        <div onClick={() => changeActive(false, el.id)}
-                          style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #99EAE1", cursor: "pointer" }} >
-                          <p style={{ width: "15px", height: "15px", background: "#99EAE1", borderRadius: "100%", margin: "0" }}></p>
-                          <ElActive>Active</ElActive>
-                        </div>
-                        :
-                        <div onClick={() => changeActive(true, el.id)}
-                          style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #F0F0F0", cursor: "pointer" }} >
-                          <p style={{ width: "15px", height: "15px", background: "#F0F0F0", borderRadius: "100%", margin: "0" }}></p>
-                          <ElDisabled>Disabled</ElDisabled>
-                        </div>
-                    }
-                  </div>
-                )
-              })
-            }
-          </main>
-        </div>
-      </main>
-      {
-        modal ?
-          <div style={{ width: "300px", height: "200px", padding: "10px", position: "absolute", top: "0", right: "0", bottom: "0", left: "0", margin: "auto", textAlign: "center", background: "black", color: "white", display: "flex", justifyContent: "center" }} >
-            <p>Deseja aceitar esse usuário</p>
-            <Button>Confirmar</Button>
-          </div> :
-          ""
-      }
-    </>
-  );
+  if (localStorage.getItem("itemType") != "admin") {
+    return (<div>
+      <p>Usuário não autenticado!</p>
+    </div>)
+  } else {
+    return (
+      <>
+        <header style={{ display: "flex", justifyContent: "space-between", alignItems: 'center', padding: "20px 40px" }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            fontSize: "20px",
+            gap: "8px",
+            color: "#04022A"
+          }}>
+            <img src={home} />
+            <p>Home Administrador</p>
+          </div>
+          <Button onClick={() => window.location.href = "/"}>Sair</Button>
+        </header >
+        <main>
+          <PageTitle>Lista de usuários</PageTitle>
+          <div>
+            <header style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
+              <ListHeaderEl style={{ width: "150px" }}>Usuário</ListHeaderEl>
+              <ListHeaderEl style={{ width: "400px" }}>Nome da instituição</ListHeaderEl>
+              <ListHeaderEl style={{ width: "150px" }}>Situação</ListHeaderEl>
+            </header>
+            <main>
+              {
+                users.map(el => {
+                  return (
+                    <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
+                      <ListMainEl style={{ width: "150px" }}>{el.userName}</ListMainEl>
+                      <ListMainEl style={{ width: "400px" }}>{el.institutionName}</ListMainEl>
+                      {
+                        el.active ?
+                          <div onClick={() => changeActive(false, el.id)}
+                            style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #99EAE1", cursor: "pointer" }} >
+                            <p style={{ width: "15px", height: "15px", background: "#99EAE1", borderRadius: "100%", margin: "0" }}></p>
+                            <ElActive>Active</ElActive>
+                          </div>
+                          :
+                          <div onClick={() => changeActive(true, el.id)}
+                            style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #F0F0F0", cursor: "pointer" }} >
+                            <p style={{ width: "15px", height: "15px", background: "#F0F0F0", borderRadius: "100%", margin: "0" }}></p>
+                            <ElDisabled>Disabled</ElDisabled>
+                          </div>
+                      }
+                    </div>
+                  )
+                })
+              }
+            </main>
+          </div>
+        </main>
+        {
+          modal ?
+            <div style={{ width: "300px", height: "200px", padding: "10px", position: "absolute", top: "0", right: "0", bottom: "0", left: "0", margin: "auto", textAlign: "center", background: "black", color: "white", display: "flex", justifyContent: "center" }} >
+              <p>Deseja aceitar esse usuário</p>
+              <Button>Confirmar</Button>
+            </div> :
+            ""
+        }
+      </>
+    );
+  }
 };
-
 
 const Button = styled.button`
   width: 141px;
