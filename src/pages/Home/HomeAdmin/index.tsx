@@ -3,72 +3,30 @@ import server from "@/server";
 
 import home from "../../../assets/home.svg"
 import printer from "../../../assets/printer.svg"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const HomeAdmin = () => {
   // Colocar dentro do laço de contrução dos Elementos da tabela
   const isActive = true;
-
-  const users = [
-    {
-      "city": "sao Paulo",
-      "password": "12345",
-      "active": false,
-      "institutionName": "banco SA",
-      "institutionType": "banco",
-      "userName": "teste",
-      "itemType": "user",
-      "id": "833a528b-4e68-411e-995b-d7201e618aab",
-      "state": "SP"
-    },
-    {
-      "city": "Sampa",
-      "password": "12345",
-      "active": true,
-      "institutionName": "Teste",
-      "institutionType": "Banco",
-      "userName": "teste1",
-      "itemType": "user",
-      "id": "8dd2c249-a076-4f83-94a1-f3e3c44a54ea",
-      "state": "SP"
-    },
-    {
-      "city": "12345",
-      "password": "12345",
-      "active": false,
-      "institutionName": "12345",
-      "institutionType": "12345",
-      "userName": "12345",
-      "itemType": "user",
-      "id": "162cb2ac-dfd7-4835-96b9-cb719b395ffa",
-      "state": "12345"
-    },
-    {
-      "city": "Sampa",
-      "password": "12345",
-      "active": false,
-      "institutionName": "Teste",
-      "institutionType": "Banco",
-      "userName": "teste2",
-      "itemType": "user",
-      "id": "038a052b-3ef6-4552-96d5-608fb5ee4f16",
-      "state": "SP"
-    }
-  ]
-
   const [modal, setModal] = useState(false)
-  // const [users, setUsers] = useState()
-
-  // server.get('/user/getall')
-  //   .then((response) => {
-  //     console.log(response);
-  // setUsers(response.data)
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //     // setTimeout(() => window.location.href = "/Login", 2000)
-  //   })
-
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(true); // Adicione o estado de carregamento
+  
+  useEffect(() => {
+    if (loading) {
+      server.get('/user/getall')
+        .then((response) => {
+          console.log(response);
+          setUsers(response.data);
+          setLoading(false); // Defina o estado de carregamento como falso após o carregamento bem-sucedido
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false); // Defina o estado de carregamento como falso em caso de erro
+          // setTimeout(() => window.location.href = "/Login", 2000)
+        });
+    }
+  }, [loading]); // Execute o efeito somente quando o estado de carregamento mudar
 
   function changeActive(active: any, userId: string) {
     server.post('/user/status', {
