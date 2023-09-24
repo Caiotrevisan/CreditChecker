@@ -8,21 +8,21 @@ Função para retornar todos os dados de um determinado item (parametro) atravé
 Exemplo de uso: id = 1, acessar http://localhost:3333/getitem/1 - método GET
 */
 export async function getParam(req, res, paramId) {
-    const params = {
-        TableName: "creditchecker",
-        Key: {
-          id: paramId,
-          itemType: itemType
-        },
-      }
+  const params = {
+    TableName: "creditchecker",
+    Key: {
+      id: paramId,
+      itemType: itemType
+    },
+  }
 
-      try {
-        const data = await dynamodb.get(params).promise()
-        res.json(data.Item)
-      } catch (error) {
-        console.error(error)
-        res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
-      }
+  try {
+    const data = await dynamodb.get(params).promise()
+    res.json(data.Item)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
+  }
 }
 
 /*
@@ -34,22 +34,22 @@ Formato: JSON
 }
 */
 export async function getUserParam(req, res) {
-    const params = {
-        TableName: "creditchecker",
-        FilterExpression: "itemType = :itemTypeValue AND userId = :userIdValue",
-        ExpressionAttributeValues: {
-          ":itemTypeValue": itemType,
-          ":userIdValue": req.body.userId,
-        },
-      }
+  const params = {
+    TableName: "creditchecker",
+    FilterExpression: "itemType = :itemTypeValue AND userId = :userIdValue",
+    ExpressionAttributeValues: {
+      ":itemTypeValue": itemType,
+      ":userIdValue": req.params.userId,
+    },
+  }
 
-      try {
-        const data = await dynamodb.scan(params).promise()
-        res.json(data.Items)
-      } catch (error) {
-        console.error(error)
-        res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
-      }
+  try {
+    const data = await dynamodb.scan(params).promise()
+    res.json(data.Items)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
+  }
 }
 
 /*
@@ -80,7 +80,8 @@ export async function newParam(req, res) {
         id: uuid(),
         itemType: itemType,
         ...value
-      }}
+      }
+    }
 
     try {
       const data = await dynamodb.put(params).promise()
@@ -102,26 +103,26 @@ Formato: JSON
 }
 */
 export async function updateParam(req, res) {
-    const params = {
-        TableName: "creditchecker",
-        Key: {
-            id: req.body.id,
-            itemType: itemType
-          },
-          UpdateExpression: "SET fee = :newFee",
-          ExpressionAttributeValues: {
-            ":newFee": req.body.fee,
-          },
-          ReturnValues: "ALL_NEW"
-        }
+  const params = {
+    TableName: "creditchecker",
+    Key: {
+      id: req.body.id,
+      itemType: itemType
+    },
+    UpdateExpression: "SET fee = :newFee",
+    ExpressionAttributeValues: {
+      ":newFee": req.body.fee,
+    },
+    ReturnValues: "ALL_NEW"
+  }
 
-      try {
-        const data = await dynamodb.update(params).promise()
-        res.json(data.Item)
-      } catch (error) {
-        console.error(error)
-        res.status(500).json({ error: "Erro ao atualizar item no banco de dados" })
-      }
+  try {
+    const data = await dynamodb.update(params).promise()
+    res.json(data.Item)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Erro ao atualizar item no banco de dados" })
+  }
 }
 
 /*
@@ -135,22 +136,22 @@ Formato: JSON
 */
 export async function deleteParam(req, res) {
   const params = {
-      TableName: "creditchecker",
-      Key: {
-          id: req.body.id,
-          itemType: itemType
-        },
-        ConditionExpression: "userId = :userIdValue",
-        ExpressionAttributeValues: {
-          ":userIdValue": req.body.userId,
-        },
-      }
+    TableName: "creditchecker",
+    Key: {
+      id: req.body.id,
+      itemType: itemType
+    },
+    ConditionExpression: "userId = :userIdValue",
+    ExpressionAttributeValues: {
+      ":userIdValue": req.body.userId,
+    },
+  }
 
-    try {
-      const data = await dynamodb.delete(params).promise()
-      res.json(data.Item)
-    } catch (error) {
-      console.error(error)
-      res.status(500).json({ error: "Erro ao apagar item no banco de dados" })
-    }
+  try {
+    const data = await dynamodb.delete(params).promise()
+    res.json(data.Item)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Erro ao apagar item no banco de dados" })
+  }
 }
