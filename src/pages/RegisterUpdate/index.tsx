@@ -7,75 +7,42 @@ import {
     Stack,
     Button,
     FormControl,
+    IconButton,
+    InputAdornment,
 } from "@mui/material";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import server from "@/server";
 
-// axios.get('/report/' + user_id)
-//             .then((response) => {
-//                 setRes(response.data.body)
-//                 setConfig(response.data.body.config)
-//             })
-//             .catch((error) => {
-//                 setNoUser(true)
-//                 setTimeout(() => window.location.href = "/Login", 2000)
-//             })
-
-// axios.post('/' + mode,
-// data, {
-// headers: { 'Content-Type': 'application/json' }
-// })
-// .then(function (response) {
-//     console.log(response);
-//     axios
-//         .patch('/user/' + user_id, {
-//             balanceValue: mode === "expanse" ? balance - (+value) : balance + (+value),
-//             totalIncomes: totalIncomes,
-//             totalExpanses: totalExpanses
-//         })
-//         .then((response) => {
-//             console.log('Update successful:', response.data);
-//             window.location.href = "/";
-//         })
-//         .catch((error) => {
-//             console.error('Error updating data:', error);
-//         });
-
-// })
-// .catch(function (error) {
-//     console.log(error);
-// });
-
-
-// axios
-// .patch('/user/' + user_id, {
-//     balanceValue: removeConfirmItemMode === "income" ? balance - removeValueItem : balance + removeValueItem,
-//     totalIncomes: totalIncomes,
-//     totalExpanses: totalExpanses
-// })
-// .then((response) => {
-//     window.location.href = "/";
-// })
-// .catch((error) => {
-//     console.error('Error updating data:', error);
-// });
-
 export const RegisterUpdate = () => {
+    if (localStorage.getItem("itemType") != "user") {
+        return (
+        <div>
+          <p>Usuário não autenticado!</p>
+        </div>
+        )
+    } else {
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (
+        event: React.MouseEvent<HTMLButtonElement>
+    ) => {
+        event.preventDefault();
+    };
     const handleSubmit = async (event: {
         preventDefault: () => void;
         currentTarget: HTMLFormElement | undefined;
     }) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const result = await server.post('/user/new',
+        const result = await server.patch('/user/update',
             {
-
-                usuario: data.get("user"),
-                senha: data.get("password")
+                id: localStorage.getItem("userId"),
+                password: data.get("senha")
             })
         console.log(result.data)
     };
-
 
     return (
         <>
@@ -88,7 +55,7 @@ export const RegisterUpdate = () => {
             >
                 <Box>
                     <Typography variant="h4" component="h2">
-                        Cadastro
+                        Atualizar Cadastro
                     </Typography>
                 </Box>
                 <Box
@@ -112,42 +79,48 @@ export const RegisterUpdate = () => {
                             }}
                         >
                             <TextField
-                                id="nomeInst"
-                                name="Nome da instituição"
-                                placeholder="Nome da instituição"
-                            />
-                            <TextField
-                                id="tipoInst"
-                                name="Tipo da instituição"
-                                placeholder="Tipo da instituição"
-                            />
-                            <TextField
-                                id="usuario"
-                                name="Nome do usuário"
-                                placeholder="Nome do usuário"
-                            />
-                            <TextField
-                                id="senha"
-                                name="Senha"
-                                placeholder="Senha"
-                                type="password"
-                            />
-                            <TextField
-                                id="repSenha"
-                                name="Repetir senha"
-                                placeholder="Repetir senha"
-                                type="password"
-                            />
-                            <TextField
-                                id="cidade"
-                                name="Cidade"
-                                placeholder="Cidade"
-                            />
-                            <TextField
-                                id="uf"
-                                name="Estado"
-                                placeholder="Estado"
-                            />
+                name="nomeInst"
+                placeholder="Nome da instituição"
+              />
+              <TextField
+                name="tipoInst"
+                placeholder="Tipo da instituição"
+              />
+              <TextField
+                name="usuario"
+                placeholder="Nome do usuário" 
+              />
+              <TextField
+                name="senha"
+                placeholder="Senha"
+                type={showPassword ? "text" : "password"}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                name="repSenha"
+                placeholder="Repetir senha"
+                type={showPassword ? "text" : "password"}
+              />
+              <TextField
+                name="cidade"
+                placeholder="Cidade"
+              />
+              <TextField
+                name="uf"
+                placeholder="Estado"
+              />
                         </Stack>
                         <Box
                             sx={{
@@ -164,7 +137,7 @@ export const RegisterUpdate = () => {
                                 <Button variant="contained" size="large" type="submit">
                                     Confirmar
                                 </Button>
-                                <Link to="/">
+                                <Link to="/HomeUser">
                                     <Button
                                         variant="outlined" size="large">
                                         Voltar
@@ -177,4 +150,5 @@ export const RegisterUpdate = () => {
             </Container >
         </>
     );
+    }
 };
