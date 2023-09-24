@@ -24,7 +24,7 @@ export const HomeUser = () => {
       const lines = csv.split('\n');
       const headers = lines[0].split(',');
       const result = [];
-    
+
       for (let i = 1; i < lines.length; i++) {
         const data = lines[i].split(',');
         const row = {
@@ -43,15 +43,15 @@ export const HomeUser = () => {
 
       // Imprime o JSON
       console.log(result);
-    
+
       try {
         // Envia o JSON para o servidor
         const response = await server.post('/params/new', result);
-    
+
         if (response.data.hasOwnProperty("error")) {
           return alert(response.data.error);
         }
-    
+
         console.log(response.data);
       } catch (error) {
         console.error(error);
@@ -99,8 +99,12 @@ export const HomeUser = () => {
         }
       </header >
       <main style={{ flexDirection: "column", padding: "0 40px", display: "flex" }}>
-        <H3>Parametros</H3>
+        <div style={{ justifyContent: "space-between", display: "flex" }}>
+          <H3>Parametros</H3>
+          <Upload htmlFor="arquivo_csv"> + Fazer Upload de Arquivo CSV </Upload>
+        </div>
         <div style={{ display: "flex", margin: "0 auto", width: "980px", justifyContent: "space-between" }}>
+
           <P style={{ width: "15%", textAlign: "center" }}>Resultado</P>
           <P style={{ width: "82%", textAlign: "center" }}>Parâmetros/Condições</P>
         </div>
@@ -115,9 +119,7 @@ export const HomeUser = () => {
           <ListHeaderEl>Valor Máximo</ListHeaderEl>
           <ListHeaderEl>Correntista</ListHeaderEl>
         </header>
-        <label htmlFor="arquivo_csv" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "1540px", height: "300px", margin: "0 auto", border: "3px dotted #99EAE1", color: "#99EAE1", borderRadius: "5px", cursor: "pointer" }} >
-          + Fazer Upload de Arquivo CSV
-        </label>
+
         <input style={{ display: "none" }} type="file" id="arquivo_csv" name="arquivo_csv" accept=".csv" onChange={handleFileUpload}></input>
       </main >
     </>
@@ -131,6 +133,19 @@ const Button = styled.button`
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+`;
+
+const Upload = styled.label`
+  width: 141px;
+  height: 40px;
+  border-radius: 5px;
+  background: #99EAE1;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+  
 `;
 
 const H3 = styled.h3`
