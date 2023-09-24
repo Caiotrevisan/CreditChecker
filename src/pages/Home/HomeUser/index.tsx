@@ -150,11 +150,17 @@ export const HomeUser = () => {
             parameters.map(el => {
               console.log(el)
               return (
-                <div>
-                  <Campos style={{ background: "#99EAE1" }}>
-                    {el.fee}
+                <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
+                  <Campos style={{ background: "#99EAE1" }}>{el.fee}</Campos>
+                  <Campos style={{ background: "#99EAE1" }}>{el.ageMin}</Campos>
+                  <Campos style={{ background: "#99EAE1" }}>{el.ageMax}</Campos>
+                  <Campos style={{ background: "#99EAE1" }}>{el.salaryMin}</Campos>
+                  <Campos style={{ background: "#99EAE1" }}>{el.salaryMax}</Campos>
+                  <Campos style={{ background: "#99EAE1" }}>{el.financingType}</Campos>
+                  <Campos style={{ background: "#99EAE1" }}>{el.financValMin}</Campos>
+                  <Campos style={{ background: "#99EAE1" }}>{el.financValMax}</Campos>
+                  <Campos style={{ background: "#99EAE1" }}>{String(el.client)}</Campos>
 
-                  </Campos>
                   <div>
                     <button>Delete</button>
                     <button>Update</button>
@@ -181,14 +187,15 @@ const Button = styled.button`
 `;
 
 const Campos = styled.div`
-width: 141px;
-  height: 40px;
-  border-radius: 5px;
-  background: #99EAE1;
-  border: none;
-  color: white;
-  font-size: 16px;
-  padding: 10px;
+color: #FFF;
+font-size: 20px;
+font-weight: 400;
+padding: 5px 0;
+background-color: #99EAE1;
+border-radius: 5px;
+text-align: center;
+margin: 0;
+width: 150px;
 `;
 
 
