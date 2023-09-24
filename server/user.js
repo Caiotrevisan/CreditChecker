@@ -37,6 +37,33 @@ export async function checkUser(req, res) {
 }
 
 /*
+Função para retornar os dados do usuário logado.
+Exemplo de uso: Enviar no corpo da requisição em http://localhost/user/info -  método POST
+Formato: JSON
+{
+   "id": "12345"
+}
+*/
+export async function getUser(req, res) {
+  const params = {
+    TableName: "creditchecker",
+    FilterExpression: "itemType = :itemTypeValue AND id = :idValue",
+    ExpressionAttributeValues: {
+      ":itemTypeValue": itemType,
+      ":idValue": req.body.id,
+    },
+  }
+
+  try {
+    const data = await dynamodb.scan(params).promise()
+    res.json(data.Items[0])
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
+  }
+}
+
+/*
 Função para retornar todos os usuarios.
 Exemplo de uso: Acessar http://localhost:3333/user/getall - método POST
 */
@@ -133,4 +160,35 @@ export async function updateUser(req, res) {
         console.error(error)
         res.status(500).json({ error: "Erro ao atualizar usuario no banco de dados" })
       }
+}
+
+/*
+Função para ativar/inativar usuário.
+Formato: JSON
+{
+  "id": "1"
+  "active": true
+}
+*/
+export async function statusUser(req, res) {
+  const params = {
+      TableName: "creditchecker",
+      Key: {
+          id: req.body.id,
+          itemType: itemType
+        },
+        UpdateExpression: "SET active = :changeActive",
+        ExpressionAttributeValues: {
+          ":changeActive": req.body.active,
+        },
+        ReturnValues: "ALL_NEW"
+      }
+
+    try {
+      const data = await dynamodb.update(params).promise()
+      res.status(200).json("Atualizado com sucesso!")
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ error: "Erro ao atualizar usuario no banco de dados" })
+    }
 }

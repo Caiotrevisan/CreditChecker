@@ -1,7 +1,7 @@
 import cors from "cors"
 import express from "express"
 import { authLogin } from "./auth.js"
-import { getAllUser, checkUser, newUser, updateUser } from "./user.js"
+import { getUser, getAllUser, checkUser, newUser, updateUser, statusUser } from "./user.js"
 import { getParam, getUserParam, newParam, updateParam, deleteParam } from "./param.js"
 import { calcFee } from "./calc.js"
 
@@ -16,6 +16,10 @@ app.post("/user/login", async (req, res) => {
 })
 
 // Rotas para acesso as funções do usuário (Cadastro/Alteração)
+app.post("/user/info", async (req, res) => {
+  getUser(req, res)
+})
+
 app.post("/user/getall", async (req, res) => {
   getAllUser(req, res)
 })
@@ -32,12 +36,16 @@ app.post("/user/update", async (req, res) => {
   updateUser(req, res)
 })
 
+app.post("/user/status", async (req, res) => {
+  statusUser(req, res)
+})
+
 // Rotas para acesso as funções de parametros (Criação/Alteração/Exclusão/Consulta)
 app.get("/params/getparam/:id", async (req, res) => {
   getParam(req, res, req.params.id)
 })
 
-app.get("/params/:userId", async (req, res) => {
+app.post("/params", async (req, res) => {
   getUserParam(req, res, req.params.userId)
 })
 
