@@ -36,6 +36,17 @@ export const RegisterUpdate = () => {
     }) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+
+        if (data.get("senha").length < 5) {
+            return alert("Preencha a senha de usuário!");
+          }
+          if (data.get("repSenha").length < 5) {
+            return alert("Repita a senha de usuário!");
+          }
+        if (data.get("senha") != data.get("repSenha")) {
+            return alert("As senhas não coincidem!");
+          };
+
         const result = await server.patch('/user/update',
             {
                 id: localStorage.getItem("userId"),

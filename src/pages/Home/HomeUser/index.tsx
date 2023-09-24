@@ -19,7 +19,7 @@ export const HomeUser = () => {
 
   useEffect(() => {
     if (loading) {
-      server.get('/params/833a528b-4e68-411e-995b-d7201e618aab')
+      server.get('/params/' + localStorage.getItem("userId"))
         .then((response: any) => {
           console.log(response);
           setParameters(response.data); // Defina o estado de carregamento como falso após o carregamento bem-sucedido
@@ -88,9 +88,13 @@ export const HomeUser = () => {
     };
 
     reader.readAsText(file);
-
     //Aqui você pode adicionar mais lógica para processar ou enviar o arquivo para o servidor, se necessário
 
+  };
+
+  function handleLogout() {
+    localStorage.clear();
+    window.location.href = "/";
   };
 
   return (
@@ -117,7 +121,7 @@ export const HomeUser = () => {
               boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
               gap: "8px", marginTop: "10px"
             }}>
-              <ActButton style={{ borderBottom: "1px solid c4c4c4", borderRadius: "5px 5px 0 0" }} onClick={() => window.location.href = "/"}>Sair</ActButton>
+              <ActButton style={{ borderBottom: "1px solid c4c4c4", borderRadius: "5px 5px 0 0" }} onClick={handleLogout}>Sair</ActButton>
               <ActButton style={{ borderRadius: "0 0 5px 5px" }} onClick={() => window.location.href = "/registerUpdate"}>Atualizar Dados</ActButton>
             </div> :
             ""
