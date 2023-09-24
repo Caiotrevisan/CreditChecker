@@ -1,6 +1,6 @@
 import { dynamodb } from "./aws.js"
 
-const itemType = "user"
+const itemType = ["user", "admin"]
 
 /*
 Função para authenticar as credenciais do usuario.
@@ -12,24 +12,48 @@ Formato: JSON
 }
 */
 export async function authLogin(req, res) {
-  const params = {
+  const user = {
     TableName: "creditchecker",
     FilterExpression:
       "itemType = :itemTypeValue AND userName = :userNameValue AND password = :passwordValue",
     ExpressionAttributeValues: {
-      ":itemTypeValue": itemType,
+      ":itemTypeValue": itemType[0],
       ":userNameValue": req.body.userName,
       ":passwordValue": req.body.password
     },
   }
-  try {
-    const data = await dynamodb.scan(params).promise()
 
-    if (data.Count == 0) {
-      return res.status(200).json({ error: "Dados inválidos" })
+  const admin = {
+    TableName: "creditchecker",
+    FilterExpression:
+      "itemType = :itemTypeValue AND userName = :userNameValue AND password = :passwordValue",
+    ExpressionAttributeValues: {
+      ":itemTypeValue": itemType[1],
+      ":userNameValue": req.body.userName,
+      ":passwordValue": req.body.password
+    },
+  }
+
+  try {
+    const userData = await dynamodb.scan(user).promise()
+
+    if (userData.Count == 0) {
+      const adminData = await dynamodb.scan(admin).promise()
+      if (adminData.Count == 0) {
+        return res.status(200).json({ error: "Dados inválidos" })
+      }
+      return res.status(200).json({
+        itemType: adminData.Items[0].itemType,
+        userId: adminData.Items[0].id,
+        active: adminData.Items[0].active
+      })
     }
 
-    res.status(200).json({ userId: data.Items[0].id })
+    res.status(200).json({
+      itemType: userData.Items[0].itemType,
+      userId: userData.Items[0].id,
+      active: userData.Items[0].active
+    })
 
   } catch (error) {
     console.error(error)
