@@ -133,34 +133,31 @@ export const HomeUser = () => {
           <P style={{ width: "82%", textAlign: "center" }}>Parâmetros/Condições</P>
         </div>
         <header style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
-          <p style={{ color: #FFF, font-size: 20px,font- weight: 400,padding: 5px 0,background - color: #99EAE1,border - radius: 5px,text - align: center,margin: 0,
-width: 150px}}>Taxa</p>
-
-        <ListHeaderEl>Idade Mínima</ListHeaderEl>
-        <ListHeaderEl>Idade Máxima</ListHeaderEl>
-        <ListHeaderEl>Salário Mínimo</ListHeaderEl>
-        <ListHeaderEl>Salário Máximo</ListHeaderEl>
-        <ListHeaderEl>Tipo de Financiamento</ListHeaderEl>
-        <ListHeaderEl>Valor Mínimo</ListHeaderEl>
-        <ListHeaderEl>Valor Máximo</ListHeaderEl>
-        <ListHeaderEl>Correntista</ListHeaderEl>
-      </header>
-      {/* <div>
+          <ListHeaderEl>Idade Mínima</ListHeaderEl>
+          <ListHeaderEl>Idade Máxima</ListHeaderEl>
+          <ListHeaderEl>Salário Mínimo</ListHeaderEl>
+          <ListHeaderEl>Salário Máximo</ListHeaderEl>
+          <ListHeaderEl>Tipo de Financiamento</ListHeaderEl>
+          <ListHeaderEl>Valor Mínimo</ListHeaderEl>
+          <ListHeaderEl>Valor Máximo</ListHeaderEl>
+          <ListHeaderEl>Correntista</ListHeaderEl>
+        </header>
+        <div>
           {
             parameters.map(el => {
               console.log(el)
               return (
-                <Campos>
+                <Campos style={{ background: "#99EAE1" }}>
                   {el.fee}
                 </Campos>
 
               )
             })
           }
-        </div> */}
+        </div>
 
-      <input style={{ display: "none" }} type="file" id="arquivo_csv" name="arquivo_csv" accept=".csv" onChange={handleFileUpload}></input>
-    </main >
+        <input style={{ display: "none" }} type="file" id="arquivo_csv" name="arquivo_csv" accept=".csv" onChange={handleFileUpload}></input>
+      </main >
     </>
   );
 };
@@ -189,54 +186,53 @@ width: 141px;
 const Upload = styled.label`
 width: 141px;
 height: 40px;
-border - radius: 5px;
+border-radius: 5px;
 background: #99EAE1;
 border: none;
 color: white;
-font - size: 16px;
+font-size: 16px;
 padding: 10px;
 cursor: pointer;
-
 `;
 
 const H3 = styled.h3`
 color: var(--Black1, #04022A);
-font - family: Poppins;
-font - size: 32px;
-font - style: normal;
-font - weight: 500;
-line - height: normal;
+font-family: Poppins;
+font-size: 32px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
 `
 
 const ListHeaderEl = styled.p`
 color: #FFF;
-font - size: 20px;
-font - weight: 400;
+font-size: 20px;
+font-weight: 400;
 padding: 5px 0;
-background - color: #99EAE1;
-border - radius: 5px;
-text - align: center;
+background-color: #99EAE1;
+border-radius: 5px;
+text-align: center;
 margin: 0;
 width: 150px;
 `;
 
 const P = styled.p`
 color:  #04022A;
-font - size: 16px;
-font - style: normal;
-font - weight: 500;
-line - height: normal;
-padding - bottom: 20px;
-border - bottom: 1px solid #E0E0E0;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+padding-bottom: 20px;
+border-bottom: 1px solid #E0E0E0;
 `
 
 const ActButton = styled.button`
 color: #818094;
-font - size: 16px;
-font - style: normal;
-font - weight: 400;
-line - height: normal;
-text - align: center;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+text-align: center;
 border: none;
 background: none;
 cursor: pointer;
