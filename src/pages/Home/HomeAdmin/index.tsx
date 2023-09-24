@@ -28,8 +28,8 @@ export const HomeAdmin = () => {
     }
   }, [loading]); // Execute o efeito somente quando o estado de carregamento mudar
 
-  function changeActive(active: any, userId: string) {
-    server.post('/user/status', {
+  async function changeActive(active: boolean, userId: string) {
+    await server.post('/user/status', {
       id: userId,
       active
     })
@@ -75,13 +75,13 @@ export const HomeAdmin = () => {
                     <ListMainEl style={{ width: "400px" }}>{el.institutionName}</ListMainEl>
                     {
                       el.active ?
-                        <div onClick={() => changeActive(true, el.id)}
+                        <div onClick={() => changeActive(false, el.id)}
                           style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #99EAE1", cursor: "pointer" }} >
                           <p style={{ width: "15px", height: "15px", background: "#99EAE1", borderRadius: "100%", margin: "0" }}></p>
                           <ElActive>Active</ElActive>
                         </div>
                         :
-                        <div onClick={() => changeActive(false, el.id)}
+                        <div onClick={() => changeActive(true, el.id)}
                           style={{ width: "150px", display: "flex", gap: "10px", alignItems: "center", justifyContent: "center", borderRadius: "5px", border: "1px solid #F0F0F0", cursor: "pointer" }} >
                           <p style={{ width: "15px", height: "15px", background: "#F0F0F0", borderRadius: "100%", margin: "0" }}></p>
                           <ElDisabled>Disabled</ElDisabled>
