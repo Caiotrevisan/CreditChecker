@@ -6,12 +6,16 @@ import { useState, useEffect } from 'react';
 
 
 export const HomeUser = () => {
+  if (localStorage.getItem("itemType") != "user") {
+    return (
+    <div>
+      <p>Usuário não autenticado!</p>
+    </div>
+    )
+  } else {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(true); // Adicione o estado de carregamento
-
   const [parameters, setParameters] = useState([]); // Adicione o estado de carregamento
-
-
 
   useEffect(() => {
     if (loading) {
@@ -87,10 +91,7 @@ export const HomeUser = () => {
 
     //Aqui você pode adicionar mais lógica para processar ou enviar o arquivo para o servidor, se necessário
 
-
   };
-
-
 
   return (
     <>
@@ -175,6 +176,7 @@ export const HomeUser = () => {
       </main >
     </>
   );
+  }
 };
 
 
