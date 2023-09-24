@@ -2,10 +2,13 @@ import styled from 'styled-components'
 import server from "@/server"
 import home from "../../../assets/home.svg"
 import menu from "../../../assets/menu.svg"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 
 export const HomeUser = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(true); // Adicione o estado de carregamento
+
 
   let jsonResult = {}
 
@@ -66,7 +69,35 @@ export const HomeUser = () => {
 
   };
 
+  const [parameters, setParameters] = useState([]); // Adicione o estado de carregamento
 
+  server.get('/params/833a528b-4e68-411e-995b-d7201e618aab')
+    .then((response: any) => {
+      console.log("response:", response);
+      setParameters(response.data); // Defina o estado de carregamento como falso após o carregamento bem-sucedido
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.log("error: ", error);
+      // setTimeout(() => window.location.href = "/Login", 2000)
+      setLoading(false);
+    });
+
+  useEffect(() => {
+    if (loading) {
+      // server.get('/params/833a528b-4e68-411e-995b-d7201e618aab')
+      //   .then((response: any) => {
+      //     console.log(response);
+      //     setParameters(response.data); // Defina o estado de carregamento como falso após o carregamento bem-sucedido
+      //     setLoading(false);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     // setTimeout(() => window.location.href = "/Login", 2000)
+      //     setLoading(false);
+      //   });
+    }
+  }, [loading]);
 
   return (
     <>
@@ -119,7 +150,18 @@ export const HomeUser = () => {
           <ListHeaderEl>Valor Máximo</ListHeaderEl>
           <ListHeaderEl>Correntista</ListHeaderEl>
         </header>
+        <div>
+          {
+            parameters.map(el => {
+              return (
+                <div>
 
+                </div>
+
+              )
+            })
+          }
+        </div>
         <input style={{ display: "none" }} type="file" id="arquivo_csv" name="arquivo_csv" accept=".csv" onChange={handleFileUpload}></input>
       </main >
     </>

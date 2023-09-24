@@ -62,8 +62,8 @@ app.get("/params/getparam/:id", async (req, res) => {
   getParam(req, res, req.params.id)
 })
 
-app.post("/params", async (req, res) => {
-  getUserParam(req, res, req.params.userId)
+app.get("/params/:userId", async (req, res) => {
+  getUserParam(req, res)
 })
 
 app.post("/params/new", async (req, res) => {
