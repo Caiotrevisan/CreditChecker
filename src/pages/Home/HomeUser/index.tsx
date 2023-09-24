@@ -133,6 +133,7 @@ export const HomeUser = () => {
           <P style={{ width: "82%", textAlign: "center" }}>Parâmetros/Condições</P>
         </div>
         <header style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
+          <ListHeaderEl>Taxa</ListHeaderEl>
           <ListHeaderEl>Idade Mínima</ListHeaderEl>
           <ListHeaderEl>Idade Máxima</ListHeaderEl>
           <ListHeaderEl>Salário Mínimo</ListHeaderEl>
@@ -141,16 +142,24 @@ export const HomeUser = () => {
           <ListHeaderEl>Valor Mínimo</ListHeaderEl>
           <ListHeaderEl>Valor Máximo</ListHeaderEl>
           <ListHeaderEl>Correntista</ListHeaderEl>
+          <ListHeaderEl>Ações</ListHeaderEl>
+
         </header>
-        <div>
+        <div style={{ width: "1650px", margin: "0 auto" }}>
           {
             parameters.map(el => {
               console.log(el)
               return (
-                <Campos style={{ background: "#99EAE1" }}>
-                  {el.fee}
-                </Campos>
+                <div>
+                  <Campos style={{ background: "#99EAE1" }}>
+                    {el.fee}
 
+                  </Campos>
+                  <div>
+                    <button>Delete</button>
+                    <button>Update</button>
+                  </div>
+                </div>
               )
             })
           }
