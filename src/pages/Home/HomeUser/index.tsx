@@ -56,6 +56,7 @@ export const HomeUser = () => {
       for (let i = 1; i < lines.length; i++) {
         const data = lines[i].split(',');
         const row = {
+          userId: localStorage.getItem("userId"),
           ageMin: parseInt(data[0]),
           ageMax: parseInt(data[1]),
           salaryMin: parseInt(data[2]),
