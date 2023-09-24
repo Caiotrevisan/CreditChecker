@@ -24,28 +24,39 @@ export const HomeUser = () => {
       const lines = csv.split('\n');
       const headers = lines[0].split(',');
       const result = [];
-
+    
       for (let i = 1; i < lines.length; i++) {
         const data = lines[i].split(',');
-        const row = {};
-        for (let j = 0; j < headers.length; j++) {
-          row[headers[j]] = data[j];
-        }
+        const row = {
+          ageMin: parseInt(data[0]),
+          ageMax: parseInt(data[1]),
+          salaryMin: parseInt(data[2]),
+          salaryMax: parseInt(data[3]),
+          financingType: data[4],
+          financValMin: parseInt(data[5]),
+          financValMax: parseInt(data[6]),
+          client: data[7] === 'true', // Converte 'true' para true e outros valores para false
+          fee: parseFloat(data[8]),
+        };
         result.push(row);
       }
 
-      //Imprime o Json
+      // Imprime o JSON
       console.log(result);
-
-      const result2 = await server.post('/params/new', result)
-
-      if (result2.data.hasOwnProperty("error")) {
-        return alert(result2.data.error)
+    
+      try {
+        // Envia o JSON para o servidor
+        const response = await server.post('/params/new', result);
+    
+        if (response.data.hasOwnProperty("error")) {
+          return alert(response.data.error);
+        }
+    
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+        // Trate erros de requisição aqui, se necessário
       }
-
-      return console.log(result2.data)
-
-
     };
 
     reader.readAsText(file);
