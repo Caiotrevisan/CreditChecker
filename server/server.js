@@ -16,7 +16,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-const port = 3333
+const port = 80
 
 // Rota de teste do backend
 app.get("/test", async (req, res) => {
