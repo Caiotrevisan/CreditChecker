@@ -97,7 +97,7 @@ export const HomeUser = () => {
 
     };
 
-    const [modal, setModal] = useState(true);
+    const [modal, setModal] = useState(false);
     const [itemId, setItemId] = useState("");
     const [itemFee, setItemFee] = useState("");
 
@@ -114,12 +114,11 @@ export const HomeUser = () => {
             fee: itemFee
           });
         console.log(result.data);
-        alert(result.data);
 
         setItemId("")
         setItemFee("")
         setModal(!modal)
-
+        window.location.reload();
       } catch (error) {
         console.error(error);
         setItemId("")
