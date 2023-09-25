@@ -48,7 +48,12 @@ export const HomeAdmin = () => {
         console.log(error);
         // setTimeout(() => window.location.href = "/Login", 2000)
       })
-  }
+    }
+
+    function handleLogout() {
+      localStorage.clear();
+      window.location.href = "/";
+    };
   
     return (
       <>
@@ -63,7 +68,7 @@ export const HomeAdmin = () => {
             <img src={home} />
             <p>Home Administrador</p>
           </div>
-          <Button onClick={() => window.location.href = "/"}>Sair</Button>
+          <Button onClick={handleLogout}>Sair</Button>
         </header >
         <main>
           <PageTitle>Lista de usuários</PageTitle>
