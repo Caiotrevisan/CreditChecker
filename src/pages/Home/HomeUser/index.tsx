@@ -156,7 +156,7 @@ export const HomeUser = () => {
       </header >
       <main style={{ flexDirection: "column", padding: "0 40px", display: "flex" }}>
         <div style={{ justifyContent: "space-between", display: "flex" }}>
-          <H3>Parametros</H3>
+          <H3>Parâmetros</H3>
           <Upload htmlFor="arquivo_csv"> + Fazer Upload de Arquivo CSV </Upload>
         </div>
         <div style={{ display: "flex", margin: "0 auto", width: "980px", justifyContent: "space-between" }}>
