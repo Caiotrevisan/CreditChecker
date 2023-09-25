@@ -348,6 +348,10 @@ padding: 5px 10px;
 `
 
 const Modal = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   padding: 10px;
