@@ -71,7 +71,9 @@ export const Register = () => {
         return alert(result.data.error)
       }
       
-      return console.log(result.data)
+      console.log(result.data)
+      alert("Cadastro efetuado com sucesso!")
+      window.location.href = "/";
     } catch (error) {
       console.error(error);
       alert("Erro ao efetuar cadastro: " + error);
