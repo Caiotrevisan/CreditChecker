@@ -115,8 +115,15 @@ export const HomeUser = () => {
           });
         console.log(result.data);
         alert(result.data);
+
+        setItemId("")
+        setItemFee("")
+        setModal(!modal)
+
       } catch (error) {
         console.error(error);
+        setItemId("")
+        setItemFee("")
         alert("Erro ao efetuar atualizacao: " + error);
         // Trate erros de requisição aqui, se necessário
       }
@@ -147,7 +154,7 @@ export const HomeUser = () => {
     };
 
     return (
-      <>
+      <section>
         <header style={{ display: "flex", justifyContent: "space-between", alignItems: 'center', padding: "20px 40px" }}>
           <div style={{
             display: "flex",
@@ -179,7 +186,7 @@ export const HomeUser = () => {
         <main style={{ flexDirection: "column", padding: "0 40px", display: "flex" }}>
           <div style={{ justifyContent: "space-between", display: "flex" }}>
             <H3>Parâmetros</H3>
-            <Upload htmlFor="arquivo_csv"> + Fazer Upload de Arquivo CSV </Upload>
+            <Upload htmlFor="arquivo_csv" style={{ textAlign: "center" }}> + Enviar  CSV </Upload>
           </div>
           <div style={{ display: "flex", margin: "0 auto", width: "980px", justifyContent: "space-between" }}>
 
@@ -215,7 +222,6 @@ export const HomeUser = () => {
               })
             }
           </div>
-
           <input style={{ display: "none" }} type="file" id="arquivo_csv" name="arquivo_csv" accept=".csv" onChange={handleFileUpload}></input>
         </main >
         {
@@ -223,11 +229,14 @@ export const HomeUser = () => {
             <Modal>
               <p style={{ fontSize: "18px" }}>Atualizar Taxa</p>
               <ModalInput step={0.1} min={0} max={10} type="number" onChange={(e) => setItemFee(e.target.value)} />
-              <Button style={{ color: "white" }} onClick={confirmUpdateItem} >Confirmar</Button>
+              <div style={{ display: "flex", gap: "30px", paddingTop: "20px" }}>
+                <Button style={{ color: "white" }} onClick={confirmUpdateItem} >Confirmar</Button>
+                <Button style={{ background: "none", color: "#99EAE1", border: "1px solid #99EAE1", borderRadius: "5px" }} onClick={() => setModal(!modal)} >Cancelar</Button>
+              </div>
             </Modal> :
             ""
         }
-      </>
+      </section>
     );
   }
 };
@@ -348,7 +357,6 @@ const Modal = styled.div`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   flex-direction: column;
   margin: 0 auto;
-  gap: 20px;
 `
 
 const ModalInput = styled.input`
