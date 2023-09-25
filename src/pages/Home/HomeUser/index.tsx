@@ -5,6 +5,10 @@ import menu from "../../../assets/menu.svg"
 import { useState, useEffect } from 'react';
 import { Refresh } from '@mui/icons-material';
 
+// icons
+import trash from "../../../assets/trash.svg"
+import refresh from "../../../assets/refresh.svg"
+
 
 export const HomeUser = () => {
   localStorage.setItem("itemType", "user")
@@ -214,8 +218,12 @@ export const HomeUser = () => {
                     <Campos>{`${el.financingType}`}</Campos>
                     <Campos>{`${el.financValMin} - ${el.financValMax}`}</Campos>
                     <Campos>{el.client ? "Sim" : "Não"}</Campos>
-                    <ButtonParam onClick={() => handleUpdateItem(el.id)}>Atualizar</ButtonParam>
-                    <ButtonParam onClick={() => handleDeleteItem(el.id)}>Remover</ButtonParam>
+                    <ButtonParam onClick={() => handleUpdateItem(el.id)}>
+                      <img src={refresh} />
+                    </ButtonParam>
+                    <ButtonParam onClick={() => handleDeleteItem(el.id)}>
+                      <img src={trash} />
+                    </ButtonParam>
                   </div>
                 )
               })
@@ -253,12 +261,15 @@ const ButtonParam = styled.button`
 color: #FFF;
 font-size: 20px;
 font-weight: 400;
-padding: 5px 0;
+padding: 5px;
 background-color: #99EAE1;
 border-radius: 5px;
 text-align: center;
 margin: 0;
 width: 72px;
+outline: none;
+border: none;
+cursor: click;
 `;
 
 const Upload = styled.label`
