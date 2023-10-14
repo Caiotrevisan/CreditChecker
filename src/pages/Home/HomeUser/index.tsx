@@ -11,7 +11,6 @@ import refresh from "../../../assets/refresh.svg"
 
 
 export const HomeUser = () => {
-  localStorage.setItem("itemType", "user")
   if (localStorage.getItem("itemType") != "user") {
     return (
       <div>
