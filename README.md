@@ -1,27 +1,29 @@
-# React + TypeScript + Vite
+Para permitir que um desenvolvedor execute a aplicação CreditChecker a partir do repositório no GitHub em seu computador pessoal, aqui estão instruções detalhadas:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Requisitos Prévios:
+Git: Certifique-se de que você tenha o Git instalado no seu computador. Você pode fazer o download em https://git-scm.com/ e seguir as instruções de instalação.
+Passos para Executar a Aplicação:
 
-Currently, two official plugins are available:
+Abra um terminal ou prompt de comando no seu computador.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Navegue até o diretório onde você deseja clonar o repositório do CreditChecker. Use o comando cd para mudar de diretório. Por exemplo:
 
-## Expanding the ESLint configuration
+cd ~/Documentos
+Clone o repositório CreditChecker do GitHub usando o seguinte comando:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+git clone https://github.com/Caiotrevisan/CreditChecker
+Isso fará o download de todos os arquivos e o histórico do repositório para o seu computador.
 
-- Configure the top-level `parserOptions` property like this:
+Após a conclusão da clonagem, navegue para o diretório do repositório CreditChecker:
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+cd CreditChecker
+Instale as dependências do projeto. As dependências do projeto estão listadas no arquivo package.json.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Por exemplo, se o projeto usa Python e tem um arquivo requirements.txt, você pode usar o seguinte comando:
+
+node server.js
+Certifique-se de que a aplicação está sendo executada sem erros.
+
+Abra um navegador da web e acesse a aplicação localmente. Normalmente, você pode acessá-la em http://localhost:porta, onde "porta" é a porta na qual a aplicação está sendo executada (por exemplo, 8080). Consulte a documentação do projeto para obter detalhes sobre a URL e a porta corretas.
+
+Com essas etapas, você deve ser capaz de clonar o repositório, instalar as dependências, configurar e executar a aplicação CreditChecker no seu computador pessoal. Certifique-se de seguir as instruções específicas do projeto, pois os passos podem variar dependendo da tecnologia e das configurações do projeto.
