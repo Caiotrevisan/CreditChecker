@@ -31,25 +31,25 @@ export const Register = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    if (data.get("nomeInst").length < 2) {
+    if (data.get("nomeInst")!.length < 2) {
       return alert("Preencha o nome da instituição!");
     };
-    if (data.get("tipoInst").length < 4) {
+    if (data.get("tipoInst")!.length < 4) {
       return alert("Preencha o tipo da instituição!");
     };
-    if (data.get("usuario").length < 5) {
+    if (data.get("usuario")!.length < 5) {
       return alert("Preencha o nome de usuário!");
     };
-    if (data.get("senha").length < 5) {
+    if (data.get("senha")!.length < 5) {
       return alert("Preencha a senha de usuário!");
     }
-    if (data.get("repSenha").length < 5) {
+    if (data.get("repSenha")!.length < 5) {
       return alert("Repita a senha de usuário!");
     }
-    if (data.get("cidade").length < 5) {
+    if (data.get("cidade")!.length < 5) {
       return alert("Preencha o nome da cidade!");
     }
-    if (data.get("uf").length < 2) {
+    if (data.get("uf")!.length < 2) {
       return alert("Preencha o estado (UF)!");
     }
     if (data.get("senha") != data.get("repSenha")) {

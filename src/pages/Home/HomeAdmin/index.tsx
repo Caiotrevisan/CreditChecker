@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import server from "@/server";
 
 import home from "../../../assets/home.svg"
-import printer from "../../../assets/printer.svg"
 import { useState, useEffect } from 'react';
 
 export const HomeAdmin = () => {
@@ -14,11 +13,10 @@ export const HomeAdmin = () => {
     );
   } else {
   // Colocar dentro do laço de contrução dos Elementos da tabela
-  const isActive = true;
-  const [modal, setModal] = useState(false);
+  const [modal] = useState(false);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true); // Adicione o estado de carregamento
-  
+
   useEffect(() => {
     if (loading) {
       server.get('/user/getall')
@@ -54,7 +52,7 @@ export const HomeAdmin = () => {
       localStorage.clear();
       window.location.href = "/";
     };
-  
+
     return (
       <>
         <header style={{ display: "flex", justifyContent: "space-between", alignItems: 'center', padding: "20px 40px" }}>
@@ -80,7 +78,7 @@ export const HomeAdmin = () => {
             </header>
             <main>
               {
-                users.map(el => {
+                users.map((el: { userName: string; institutionName: string; active: boolean; id: string; }) => {
                   return (
                     <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "12px" }}>
                       <ListMainEl style={{ width: "150px" }}>{el.userName}</ListMainEl>

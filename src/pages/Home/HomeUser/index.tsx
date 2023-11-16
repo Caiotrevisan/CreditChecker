@@ -3,7 +3,7 @@ import server from "@/server"
 import home from "../../../assets/home.svg"
 import menu from "../../../assets/menu.svg"
 import { useState, useEffect } from 'react';
-import { Refresh } from '@mui/icons-material';
+// import { Refresh } from '@mui/icons-material';
 
 // icons
 import trash from "../../../assets/trash.svg"
@@ -40,9 +40,9 @@ export const HomeUser = () => {
 
     console.log(parameters);
 
-    let jsonResult = {}
+    // let jsonResult = {}
 
-    async function handleFileUpload(event) {
+    async function handleFileUpload(event: any) {
       const file = event.target.files[0]; // Obtém o arquivo selecionado pelo usuário
       if (!file) {
         // Caso o usuário não tenha selecionado nenhum arquivo
@@ -52,10 +52,10 @@ export const HomeUser = () => {
 
       const reader = new FileReader();
 
-      reader.onload = async function (e) {
-        const csv = e.target.result;
+      reader.onload = async function (e: any) {
+        const csv: any = e.target.result;
         const lines = csv.split('\n');
-        const headers = lines[0].split(',');
+        // const headers = lines[0].split(',');
         const result = [];
 
         for (let i = 1; i < lines.length; i++) {
@@ -131,7 +131,7 @@ export const HomeUser = () => {
       }
     }
 
-    async function handleDeleteItem(paramId: string) {
+    async function handleDeleteItem(paramId: any) {
       try {
         const result = await server.delete('/params/delete',
           {
@@ -140,7 +140,7 @@ export const HomeUser = () => {
               userId: localStorage.getItem("userId")
             }
           });
-        //console.log(result.data)
+        console.log(result.data)
         alert("Parametro removido com sucesso!");
         window.location.reload();
       } catch (error) {
@@ -207,7 +207,7 @@ export const HomeUser = () => {
           </header>
           <div>
             {
-              parameters.map(el => {
+              parameters.map((el: any) => {
                 console.log(el)
                 return (
                   <div style={{ display: "flex", flexDirection: "row", gap: "5px", justifyContent: "center", marginBottom: "12px" }}>

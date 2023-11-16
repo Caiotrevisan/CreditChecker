@@ -1,4 +1,3 @@
-import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { HomeAdmin } from "@/pages/Home/HomeAdmin";
 import { HomeUser } from "@/pages/Home/HomeUser";
 import Login from "@/pages/Login";
@@ -24,18 +23,14 @@ export const router = createBrowserRouter([
   {
     path: "/HomeAdmin",
     element: (
-      //<ProtectedRoute>
       <HomeAdmin />
-      //</ProtectedRoute>
     ),
     children: [],
   },
   {
     path: "/HomeUser",
     element: (
-      //<ProtectedRoute>
       <HomeUser />
-      // </ProtectedRoute>
     ),
     children: [],
   },
